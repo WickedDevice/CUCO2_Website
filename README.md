@@ -1,4 +1,16 @@
-== README
+CO2 sensor backend website
+==========================
+
+*Not complete*
+
+A Ruby on Rails server to manage and store data from CO2 sensors with the Wildfire board.
+
+
+
+
+
+
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
