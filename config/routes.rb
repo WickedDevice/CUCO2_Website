@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :sensor_data
+
   resources :devices
 
   get 'welcome/index'
