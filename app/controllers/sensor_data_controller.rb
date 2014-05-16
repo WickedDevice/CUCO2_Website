@@ -1,4 +1,5 @@
 class SensorDataController < ApplicationController
+  protect_from_forgery with: :null_session
   before_action :set_sensor_datum, only: [:show, :edit, :update, :destroy]
 
   # GET /sensor_data
@@ -23,8 +24,22 @@ class SensorDataController < ApplicationController
 
   # POST /sensor_data
   # POST /sensor_data.json
-  def create
+   def create
+
+     #Can also be created with:
+     # => curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{"sensor_datum": {"ppm": "400","device_id": "1"}}' localhost:3000/sensor_data.json
+     # => curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{"sensor_datum": {"ppm": "400", "device_address": "42"}}' localhost:3000/sensor_data.json
+
     @sensor_datum = SensorDatum.new(sensor_datum_params)
+
+    if sensor_datum_params[:device_address] != nil && @sensor_datum.device_id.nil?
+      device = Device.find_by address: sensor_datum_params[:device_address]
+      @sensor_datum.device_id = device.id
+      @sensor_datum.experiment_id = device.experiment_id
+    elsif @sensor_datum.device_id != nil
+      device = Device.find(@sensor_datum.device_id)
+      @sensor_datum.experiment_id = device.experiment_id
+    end
 
     respond_to do |format|
       if @sensor_datum.save
@@ -69,6 +84,6 @@ class SensorDataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_datum_params
-      params.require(:sensor_datum).permit(:ppm)
+      params.require(:sensor_datum).permit(:ppm, :device_id, :device_address)
     end
 end

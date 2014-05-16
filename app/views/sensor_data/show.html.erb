@@ -1,8 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Ppm:</strong>
+  <strong>ppm:</strong>
   <%= @sensor_datum.ppm %>
+</p>
+<p>
+  <strong>device_id:</strong>
+  <%= @sensor_datum.device_id %>
 </p>
 
 <%= link_to 'Edit', edit_sensor_datum_path(@sensor_datum) %> |
