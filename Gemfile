@@ -9,6 +9,8 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.3'
 # Use bootstrap
 gem 'bootstrap-sass'
+# Use flot for displaying graphs
+gem 'flot-rails', :git => "https://github.com/Kjarrigan/flot-rails.git"
 
 group :development, :test do
 	gem 'rspec-rails'
