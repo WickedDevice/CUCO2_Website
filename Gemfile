@@ -12,6 +12,9 @@ gem 'bootstrap-sass'
 # Use flot for displaying graphs
 gem 'flot-rails', :git => "https://github.com/Kjarrigan/flot-rails.git"
 
+# Login using google
+gem "omniauth-google-oauth2", "~> 0.2.1"
+
 group :development, :test do
 	gem 'rspec-rails'
 end
