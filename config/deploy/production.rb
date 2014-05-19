@@ -23,6 +23,7 @@ server '162.243.18.121', user: 'deployer', roles: %w{web}
 # You may pass any option but keep in mind that net/ssh understands a
 # limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
 #
+set :password, ask('Server password', nil)
 set :ssh_options, {
 	forward_agent: true,
 	auth_methods: %w(publickey password),
