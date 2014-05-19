@@ -1,5 +1,5 @@
 # Define the name of the application
-set :application, 'my_app'
+set :application, 'CUC02_Website'
 
 # Define where can Capistrano access the source repository
 # set :repo_url, 'https://github.com/WickedDevice/CUCO2_Website'

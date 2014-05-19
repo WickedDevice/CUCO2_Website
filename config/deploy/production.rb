@@ -24,9 +24,9 @@ server '162.243.18.121', user: 'deployer', roles: %w{web}
 # limited set of options, consult[net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start).
 #
 set :ssh_options, {
-	forward_agent: false,
-	auth_methods: %w(password),
-	
+	forward_agent: true,
+	auth_methods: %w(publickey password),
+	password: fetch(:password),	
 	user: 'deployer',
 }
 
