@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: /home/deployer/apps/CUCO2_Website/shared/production.sqlite3
