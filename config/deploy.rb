@@ -20,14 +20,14 @@ set :format, :pretty
 # check out:
 # http://capistranorb.com/
 
-# namespace: deploy do
-
-#   desc 'Restart application'
-#   task :restart do
-#     on roles(:app), in: :sequence, wait: 5 do
-#       # Your restart mechanism here, for example:
-#       execute :touch, release_path.join('tmp/restart.txt')
-#     end
+#namespace :deploy do
+#
+# desc 'Restart application'
+#   task :restart, :roles => :web do
+#     # Your restart mechanism here, for example:
+#     # execute :touch, release_path.join('tmp/restart.txt')
+#     run "touch #{ current_path }/tmp/restart.txt"
+#     ### sudo "/etc/init.d/nginx restart" # => Probably don't need to restart nginx
 #   end
 
 #   after :publishing, :restart
@@ -41,4 +41,4 @@ set :format, :pretty
 #     end
 #   end
 
-# end
+#end
