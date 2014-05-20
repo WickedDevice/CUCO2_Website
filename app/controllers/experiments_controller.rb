@@ -10,6 +10,19 @@ class ExperimentsController < ApplicationController
   # GET /experiments/1
   # GET /experiments/1.json
   def show
+    @chart_options = []
+
+          #Probably very slow
+    @experiment.devices.each do |device|
+      device_data = []
+      
+      data = SensorDatum.where(:device_id => device.id, :experiment_id => @experiment.id)
+      data.each do |datum|
+        device_data << [datum.created_at.to_i, datum.ppm]
+      end
+
+      @chart_options << {label: device.name, data: device_data}
+    end
   end
 
   # GET /experiments/new

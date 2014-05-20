@@ -32,14 +32,8 @@ class SensorDataController < ApplicationController
 
     @sensor_datum = SensorDatum.new(sensor_datum_params)
 
-    if sensor_datum_params[:device_address] != nil && @sensor_datum.device_id.nil?
-      device = Device.find_by address: sensor_datum_params[:device_address]
-      @sensor_datum.device_id = device.id
-      @sensor_datum.experiment_id = device.experiment_id
-    elsif @sensor_datum.device_id != nil
-      device = Device.find(@sensor_datum.device_id)
-      @sensor_datum.experiment_id = device.experiment_id
-    end
+    @sensor_datum.resolve_device_id
+    @sensor_datum.resolve_experiment_id
 
     respond_to do |format|
       if @sensor_datum.save
