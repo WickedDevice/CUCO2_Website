@@ -22,7 +22,7 @@ class ExperimentsController < ApplicationController
       end
 
       unless @chart_labels.has_key? datum.device.name
-        @chart_ykeys << "'" + datum.device.id.to_s + "', "
+        @chart_ykeys << "'id_num_" + datum.device.id.to_s + "', "
         @chart_labels[datum.device.name] = true
       end
 
@@ -30,6 +30,13 @@ class ExperimentsController < ApplicationController
     @chart_ykeys = @chart_ykeys[0..-3]
     @chart_ykeys << ']'
 
+    #@chart_data = { '2006' => { a: 100, b: 90 },
+    #                '2007' => { a: 75,  b: 65 }
+    #              }
+    #@chart_ykeys = "['id_num_a', 'id_num_b']"
+    #@chart_labels = {'A' => true, 'B' => true}
+
+=begin
     @chart_options = []
 
           #Probably very slow
@@ -43,6 +50,7 @@ class ExperimentsController < ApplicationController
 
       @chart_options << {label: device.name, data: device_data}
     end
+=end
   end
 
   # GET /experiments/new

@@ -18,7 +18,7 @@
         <td><%= experiment.location %></td>
         <td><%= experiment.start %></td>
         <td><%= experiment.end %></td>
-        <td><%= link_to 'Show', experiment %></td>
+        <td><%= link_to 'Show', experiment, data: { no_turbolink: true } %></td>
         <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>
         <td><%= link_to 'Destroy', experiment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
