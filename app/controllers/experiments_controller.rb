@@ -10,6 +10,26 @@ class ExperimentsController < ApplicationController
   # GET /experiments/1
   # GET /experiments/1.json
   def show
+    @chart_data = {}
+    @chart_ykeys = '['
+    @chart_labels = {}
+
+    @experiment.sensor_data.each do |datum|
+      if @chart_data[datum.created_at].nil?
+        @chart_data[datum.created_at] = { datum.device.id => datum.ppm }
+      else
+        @chart_data[datum.created_at][datum.device.id] = datum.ppm
+      end
+
+      unless @chart_labels.has_key? datum.device.name
+        @chart_ykeys << "'" + datum.device.id.to_s + "', "
+        @chart_labels[datum.device.name] = true
+      end
+
+    end
+    @chart_ykeys = @chart_ykeys[0..-3]
+    @chart_ykeys << ']'
+
     @chart_options = []
 
           #Probably very slow
