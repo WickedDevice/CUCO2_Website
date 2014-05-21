@@ -8,7 +8,7 @@ gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use bootstrap
-gem 'bootstrap-sass',	group: :assets
+gem 'bootstrap-sass'
 # Use flot for displaying graphs
 #gem 'flot-rails', :git => "https://github.com/Kjarrigan/flot-rails.git"
 
