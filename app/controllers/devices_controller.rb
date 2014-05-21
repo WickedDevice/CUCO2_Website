@@ -5,21 +5,6 @@ class DevicesController < ApplicationController
   # GET /devices.json
   def index
     @devices = Device.all
-
-    @chart_options = []
-
-      #Probably very slow
-    @devices.each do |device|
-      device_data = []
-      
-      data = SensorDatum.where(:device_id => device.id)
-      data.each do |datum|
-        device_data << [datum.created_at.to_i, datum.ppm]
-      end
-
-      @chart_options << {label: device.name, data: device_data}
-    end
-
   end
 
   # GET /devices/1
