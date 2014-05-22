@@ -12,8 +12,12 @@ gem 'bootstrap-sass'
 # Use flot for displaying graphs
 #gem 'flot-rails', :git => "https://github.com/Kjarrigan/flot-rails.git"
 
-# Login using google
+# Login using google #Not implemented
 gem "omniauth-google-oauth2", "~> 0.2.1"
+
+# Adding formtastic for some forms
+# => Using a bootstrap version
+gem "formtastic-bootstrap"
 
 group :development, :test do
 	gem 'rspec-rails'
@@ -52,6 +56,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'capistrano', '~> 3.2.1', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

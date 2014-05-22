@@ -33,30 +33,4 @@ class Experiment < ActiveRecord::Base
 			end
 		end
 	end
-
-	def add_devices(device_hash)
-		#Expects a hash in the format of:
-		#{device id (as string)  => ["true"/"false"], ...}
-		puts "Add_devices called with " + device_hash.to_s
-
-		device_hash = {} if device_hash == nil
-
-		return_value = true
-		Device.all.each do |device|
-			in_experiment = device_hash[device.id][0] unless device_hash[device.id] == nil
-			if active? && in_experiment == 'true'
-				device.experiment = self
-				return_value &= device.save
-			elsif device.experiment_id == self.id # and in_experiment == false
-			#remove device from experiment
-				puts "removing device"
-				device.experiment = nil
-				return_value &= device.save
-			else
-				puts "doing nothing"
-			end
-		end
-		return_value
-	end
-
 end

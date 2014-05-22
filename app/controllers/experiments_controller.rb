@@ -64,7 +64,9 @@ class ExperimentsController < ApplicationController
     @experiment = Experiment.new(experiment_params)
 
     respond_to do |format|
-      if @experiment.add_devices(params[:device]) && @experiment.save
+      devices = Device.find(params[:experiment][:device_ids]) rescue []
+      @experiment.devices = devices
+      if @experiment.save
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
       else
@@ -78,7 +80,9 @@ class ExperimentsController < ApplicationController
   # PATCH/PUT /experiments/1.json
   def update
     respond_to do |format|
-      if @experiment.add_devices(params[:device]) && @experiment.update(experiment_params)
+      devices = Device.find(params[:experiment][:device_ids]) rescue []
+      @experiment.devices = devices
+      if @experiment.update(experiment_params)
         format.html { redirect_to @experiment, notice: 'Experiment was successfully updated.' }
         format.json { render :show, status: :ok, location: @experiment }
       else
@@ -106,6 +110,6 @@ class ExperimentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
-      params.require(:experiment).permit(:name, :location, :start, :end, :device)
+      params.require(:experiment).permit(:name, :location, :start, :end, :device_ids)
     end
 end

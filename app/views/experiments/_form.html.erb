@@ -1,4 +1,4 @@
-<%= form_for(@experiment) do |f| %>
+<%= semantic_form_for(@experiment) do |f| %>
   <% if @experiment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
@@ -33,7 +33,7 @@
     <li>
     <%= fields_for(device) do |device_f| %>
     <%= device_f.label device.name %>
-    <%= check_box("device", "#{device.id}", {:multiple => true}, true, false) %>
+    <%= check_box_tag("experiment[device_ids][]", device.id, device.experiment_id == @experiment.id) %>
     <% end %>
     </li>
     <% end %>
