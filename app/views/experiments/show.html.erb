@@ -7,9 +7,11 @@
 </p>
 
 <br>
-
+<% if @experiment.sensor_data.empty? %>
+<p>This experiment has no data yet.</p>
+<% else %>
 <%= render 'chart' %>
-
+<% end %>
 <br>
 
 <p>
@@ -28,9 +30,28 @@
 </p>
 
 <p>
-  <strong>End:</strong>
-  <%= @experiment.end %>
+  <% if @experiment.end.nil? %>
+  	<div style="">
+  		<%= render 'form_end' %>
+  	</div>
+
+  <% else %>
+  	<strong>End:</strong>
+  	<%= @experiment.end %>
+  <% end %>
 </p>
+
+<% if @experiment.devices.length > 0 %>
+<p><strong>Devices:</strong>
+<ul>
+	<% @experiment.devices.each do |device| %>
+		<li><%= device.name %></li>
+	<% end %>
+</ul>
+</p>
+<% else %>
+	<br><p>This experiment has no devices currently submitting to it.</p>
+<% end %>
 
 <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
 <%= link_to 'Back', experiments_path %>
