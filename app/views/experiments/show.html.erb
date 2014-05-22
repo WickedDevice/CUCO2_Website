@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  Download:
+  <%= link_to "CSV", :action => :show, :id => @experiment.id, :format =>'csv'%>
+
+</p>
+
+<br>
+
 <%= render 'chart' %>
 
 <br>

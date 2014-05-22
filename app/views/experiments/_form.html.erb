@@ -27,6 +27,19 @@
     <%= f.label :end %><br>
     <%= f.datetime_select :end %>
   </div>
+
+  <ul>
+    <% @devices.each do |device| %>
+    <li>
+    <%= fields_for(device) do |device_f| %>
+    <%= device_f.label device.name %>
+    <%= check_box("device", "#{device.id}", {:multiple => true}, true, false) %>
+    <% end %>
+    </li>
+    <% end %>
+  </ul>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

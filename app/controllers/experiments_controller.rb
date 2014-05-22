@@ -1,10 +1,13 @@
 class ExperimentsController < ApplicationController
   before_action :set_experiment, only: [:show, :edit, :update, :destroy]
-
   # GET /experiments
   # GET /experiments.json
   def index
     @experiments = Experiment.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @experiments.to_csv}
+    end
   end
 
   # GET /experiments/1
@@ -14,7 +17,12 @@ class ExperimentsController < ApplicationController
     @chart_ykeys = '['
     @chart_labels = {}
 
-    @experiment.sensor_data.each do |datum|
+    #Loads the last 1000 data points into the graph.
+    # This code smells and probably should change.
+    range = [-1000, -1*@experiment.sensor_data.length].max() .. -1
+
+    @experiment.sensor_data[range].each do |datum|
+
       if @chart_data[datum.created_at].nil?
         @chart_data[datum.created_at] = { datum.device.id => datum.ppm }
       else
@@ -27,39 +35,27 @@ class ExperimentsController < ApplicationController
       end
 
     end
-    @chart_ykeys = @chart_ykeys[0..-3]
+    @chart_ykeys = @chart_ykeys[0..-3] unless @chart_ykeys.length < 4
     @chart_ykeys << ']'
 
-    #@chart_data = { '2006' => { a: 100, b: 90 },
-    #                '2007' => { a: 75,  b: 65 }
-    #              }
-    #@chart_ykeys = "['id_num_a', 'id_num_b']"
-    #@chart_labels = {'A' => true, 'B' => true}
-
-=begin
-    @chart_options = []
-
-          #Probably very slow
-    @experiment.devices.each do |device|
-      device_data = []
-      
-      data = SensorDatum.where(:device_id => device.id, :experiment_id => @experiment.id)
-      data.each do |datum|
-        device_data << [datum.created_at.to_i, datum.ppm]
-      end
-
-      @chart_options << {label: device.name, data: device_data}
+    respond_to do |format|
+      format.html
+      format.csv {
+        render text: @experiment.to_csv
+        return
+      }
     end
-=end
   end
 
   # GET /experiments/new
   def new
     @experiment = Experiment.new
+    @devices = Device.all
   end
 
   # GET /experiments/1/edit
   def edit
+    @devices = Device.all
   end
 
   # POST /experiments
@@ -68,7 +64,7 @@ class ExperimentsController < ApplicationController
     @experiment = Experiment.new(experiment_params)
 
     respond_to do |format|
-      if @experiment.save
+      if @experiment.add_devices(params[:device]) && @experiment.save
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
       else
@@ -82,7 +78,7 @@ class ExperimentsController < ApplicationController
   # PATCH/PUT /experiments/1.json
   def update
     respond_to do |format|
-      if @experiment.update(experiment_params)
+      if @experiment.add_devices(params[:device]) && @experiment.update(experiment_params)
         format.html { redirect_to @experiment, notice: 'Experiment was successfully updated.' }
         format.json { render :show, status: :ok, location: @experiment }
       else
@@ -110,6 +106,6 @@ class ExperimentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
-      params.require(:experiment).permit(:name, :location, :start, :end)
+      params.require(:experiment).permit(:name, :location, :start, :end, :device)
     end
 end

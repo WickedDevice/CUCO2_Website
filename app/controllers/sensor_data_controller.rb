@@ -6,6 +6,11 @@ class SensorDataController < ApplicationController
   # GET /sensor_data.json
   def index
     @sensor_data = SensorDatum.all
+
+    respond_to do |format|
+      format.html
+      format.csv { render text: @sensor_data.to_csv}
+    end
   end
 
   # GET /sensor_data/1
