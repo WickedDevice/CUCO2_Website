@@ -81,12 +81,7 @@ class ExperimentsController < ApplicationController
   def update
     respond_to do |format|
       devices = Device.find(params[:experiment][:device_ids]) rescue []
-      @experiment.devices = devices if devices != []
-
-      if params[:experiment][:end] == "now"
-        params[:experiment][:end] = Time.now
-      end
-
+      @experiment.devices = devices
       if @experiment.update(experiment_params)
         format.html { redirect_to @experiment, notice: 'Experiment was successfully updated.' }
         format.json { render :show, status: :ok, location: @experiment }
