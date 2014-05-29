@@ -61,6 +61,16 @@ class DevicesController < ApplicationController
     end
   end
 
+  def first_contact
+
+    #something like this
+    @device = Device.find_by address: params[:address]
+    
+    respond_to do |format|
+      format.html {render(layout: false)}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_device

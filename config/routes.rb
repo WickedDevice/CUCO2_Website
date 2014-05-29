@@ -7,6 +7,14 @@ Rails.application.routes.draw do
 
   get 'welcome/index'
 
+
+  post 'first_contact/:address', to: "devices#first_contact"
+  get  'first_contact/:address', to: "devices#first_contact"
+
+
+  post 'sensor_data/batch_create/:device_address', to: 'sensor_data#batch_create'
+  get 'sensor_data/batch_create/:device_address', to: 'sensor_data#batch_create'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

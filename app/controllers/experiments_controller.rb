@@ -50,12 +50,10 @@ class ExperimentsController < ApplicationController
   # GET /experiments/new
   def new
     @experiment = Experiment.new
-    @devices = Device.all
   end
 
   # GET /experiments/1/edit
   def edit
-    @devices = Device.all
   end
 
   # POST /experiments
@@ -80,13 +78,31 @@ class ExperimentsController < ApplicationController
   # PATCH/PUT /experiments/1.json
   def update
     respond_to do |format|
+
       devices = Device.find(params[:experiment][:device_ids]) rescue []
-      @experiment.devices = devices
-      if @experiment.update(experiment_params)
+
+      @experiment.devices = devices if devices != []
+
+      if params[:experiment][:start] == "now"
+        params[:experiment][:start] = Time.now
+      end
+
+      if params[:experiment][:end] == "now"
+        params[:experiment][:end] = Time.now
+      end
+
+      updated = @experiment.update(experiment_params)
+
+      if @experiment.active?
+        updated &= @experiment.request_only_devices(params[:experiment][:device_ids])
+        @experiment.checkout_devices
+      end
+
+      if updated
         format.html { redirect_to @experiment, notice: 'Experiment was successfully updated.' }
         format.json { render :show, status: :ok, location: @experiment }
       else
-        format.html { render :edit }
+        format.html { render :edit, notice: 'Unable to update experiment.' }
         format.json { render json: @experiment.errors, status: :unprocessable_entity }
       end
     end
@@ -106,6 +122,7 @@ class ExperimentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_experiment
       @experiment = Experiment.find(params[:id])
+      @devices = Device.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

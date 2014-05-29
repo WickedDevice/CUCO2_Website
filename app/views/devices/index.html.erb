@@ -7,6 +7,7 @@
       <th>Name</th>
       <th>Address</th>
       <th>Notes</th>
+      <th>Current Experiment</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
         <td><%= device.name %></td>
         <td><%= device.address %></td>
         <td><%= device.notes %></td>
+        <td><%= device.experiment.name if device.in_experiment? %></td>
         <td><%= link_to 'Show', device %></td>
         <td><%= link_to 'Edit', edit_device_path(device) %></td>
         <td><%= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' } %></td>

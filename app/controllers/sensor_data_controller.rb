@@ -51,11 +51,17 @@ class SensorDataController < ApplicationController
     end
   end
 
+  def batch_create # Probably won't work...
+    @success = SensorDatum.batch_create(params[:sensor_datum])
+
+    render :batch_create, layout: false
+  end
+
   # PATCH/PUT /sensor_data/1
   # PATCH/PUT /sensor_data/1.json
   def update
     respond_to do |format|
-      if @sensor_datum.update(sensor_datum_params)
+      if @sensor_datum.update(params[:sensor_datum])
         format.html { redirect_to @sensor_datum, notice: 'Sensor datum was successfully updated.' }
         format.json { render :show, status: :ok, location: @sensor_datum }
       else
@@ -78,11 +84,13 @@ class SensorDataController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sensor_datum
-      @sensor_datum = SensorDatum.find(params[:id])
+      if(params.has_key? :id) and params[:id].is_a? Fixnum
+        @sensor_datum = SensorDatum.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_datum_params
-      params.require(:sensor_datum).permit(:ppm, :device_id, :device_address)
+      params.require(:sensor_datum).permit(:ppm, :device_id, :device_address, :experiment_id, :sensor_datum => [:ppm => []])
     end
 end

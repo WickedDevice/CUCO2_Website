@@ -7,10 +7,14 @@
 </p>
 
 <br>
-
-<%= render 'chart' %>
+ <% if @experiment.sensor_data.empty? %>
+ <p>This experiment has no data yet.</p>
+ <% else %>
+  <%= render 'chart' %>
+ <% end %>
 
 <br>
+
 
 <p>
   <strong>Name:</strong>
@@ -22,15 +26,47 @@
   <%= @experiment.location %>
 </p>
 
-<p>
-  <strong>Start:</strong>
-  <%= @experiment.start %>
-</p>
+<% if @experiment.start.nil? %>
+  	<div>
+  		<%= render 'form_start' %>
+<% elsif @experiment.end.nil? %>
+  <p>
+    <strong>Start:</strong>
+    <%= @experiment.start %>
+  </p>
+  <p>
+  	<div>
+  		<%= render 'form_end' %>
+  	</div>
 
-<p>
-  <strong>End:</strong>
-  <%= @experiment.end %>
-</p>
+<% else %>
+  <p>
+    <strong>Start:</strong>
+    <%= @experiment.start %>
+  </p>
+  <p>
+    <strong>End:</strong>
+  	<%= @experiment.end %>
+  </p>
+<% end %>
 
+
+<% if not @experiment.devices.first.nil? %>
+<%# If there is any devices attached to the experiment %>
+<p><strong>Devices:</strong>
+<ul>
+	<% @experiment.devices.each do |device| %>
+		<li><%= device.name %>
+      <% if device.experiment_id == @experiment.id %>
+        (active)
+        <% end %>
+    </li>
+	<% end %>
+</ul>
+
+</p>
+<% else %>
+<p><br>This experiment doesn't appear to have any devices</p>
+<% end %>
 <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
 <%= link_to 'Back', experiments_path %>

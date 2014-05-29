@@ -19,15 +19,26 @@
     <%= f.label :location %><br>
     <%= f.text_field :location %>
   </div>
+
+
+<% if not @experiment.start.nil? %>
   <div class="field">
     <%= f.label :start %><br>
     <%= f.datetime_select :start %>
   </div>
+<% end %>
+
+<% if not @experiment.end.nil? %>
   <div class="field">
     <%= f.label :end %><br>
     <%= f.datetime_select :end %>
   </div>
+<% end %>
 
+<div>
+  <br>
+  <%= f.label :devices %>
+  <% if @devices %>
   <ul>
     <% @devices.each do |device| %>
     <li>
@@ -38,7 +49,10 @@
     </li>
     <% end %>
   </ul>
-
+  <% else %>
+  <p>There appear to be no devices</p>
+  <% end %>
+</div
 
   <div class="actions">
     <%= f.submit %>

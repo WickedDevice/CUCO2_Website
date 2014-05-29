@@ -13,7 +13,6 @@ class SensorDatum < ActiveRecord::Base
 
 	def resolve_experiment_id
 		if device and device.in_experiment?
-			puts "Can resolve experiment id"
 			self.experiment = self.device.experiment
 		end
 	end
@@ -27,4 +26,23 @@ class SensorDatum < ActiveRecord::Base
 		end
 	end
 
+	def self.batch_create(params)
+		if params.nil? || params[:ppm].nil?
+			return false
+		end
+
+		success = true
+		params[:ppm].each do |time, ppm|
+			sensor_datum = SensorDatum.new()
+			sensor_datum.experiment_id = params[:experiment_id]
+			sensor_datum.device_address = params[:device_address]
+			sensor_datum.resolve_device_id
+
+			sensor_datum.ppm = ppm
+			sensor_datum.created_at = Time.at(time);
+
+			success &= sensor_datum.save
+		end
+		return success
+	end
 end
