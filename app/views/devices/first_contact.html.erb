@@ -1,0 +1,17 @@
+start
+<%= Time.now.to_i %>
+
+<% if @device.nil? %>
+<p>Device not found</p>
+<% else %>
+<% if @device.in_experiment? %>
+In_experiment:
+<%= @device.experiment_id %>
+
+<p> Cutoff (time or ppm) and associated info will go here </p>
+<% else %>
+Device is not in an experiment.
+<% end %>
+
+<% end %>
+end
