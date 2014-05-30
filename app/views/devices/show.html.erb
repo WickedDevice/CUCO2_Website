@@ -5,6 +5,18 @@
   <%= @device.name %>
 </p>
 
+<% if @device.in_experiment? %>
+<p>
+	<strong>Current Experiment:</strong>
+	<%= link_to @device.experiment.name, @device.experiment %>
+</p>
+<% elsif !@device.experiment.nil? %>
+<p>
+	<strong>Most Recent Experiment:</strong>
+	<%= link_to @device.experiment.name, @device.experiment %>
+</p>
+<% end %>
+
 <p>
   <strong>Address:</strong>
   <%= @device.address %>

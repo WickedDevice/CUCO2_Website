@@ -28,50 +28,12 @@
 
 <p>
   <strong>CO2 Cutoff:</strong>
-  <%= @experiment.co2_cutoff %>
+  <%= @experiment.co2_cutoff %> ppm
 </p>
 
-<% if @experiment.start.nil? %>
-  	<div>
-  		<%= render 'form_start' %>
-<% elsif @experiment.end.nil? %>
-  <p>
-    <strong>Start:</strong>
-    <%= @experiment.start %>
-  </p>
-  <p>
-  	<div>
-  		<%= render 'form_end' %>
-  	</div>
+<%= render 'show_start_and_end' %>
 
-<% else %>
-  <p>
-    <strong>Start:</strong>
-    <%= @experiment.start %>
-  </p>
-  <p>
-    <strong>End:</strong>
-  	<%= @experiment.end %>
-  </p>
-<% end %>
+<%= render 'show_devices' %>
 
-
-<% if not @experiment.devices.first.nil? %>
-<%# If there is any devices attached to the experiment %>
-<p><strong>Devices:</strong>
-<ul>
-	<% @experiment.devices.each do |device| %>
-		<li><%= device.name %>
-      <% if device.experiment_id == @experiment.id %>
-        (active)
-        <% end %>
-    </li>
-	<% end %>
-</ul>
-
-</p>
-<% else %>
-<p><br>This experiment doesn't appear to have any devices</p>
-<% end %>
 <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
 <%= link_to 'Back', experiments_path %>

@@ -40,8 +40,14 @@ class DevicesController < ApplicationController
   # PATCH/PUT /devices/1
   # PATCH/PUT /devices/1.json
   def update
+
+
     respond_to do |format|
       if @device.update(device_params)
+        unless params[:device][:redirect_to].blank?
+          redirect_to params[:device][:redirect_to]
+          return
+        end
         format.html { redirect_to @device, notice: 'Device was successfully updated.' }
         format.json { render :show, status: :ok, location: @device }
       else
@@ -79,6 +85,6 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:name, :address, :notes)
+      params.require(:device).permit(:name, :address, :notes, :experiment_id)
     end
 end

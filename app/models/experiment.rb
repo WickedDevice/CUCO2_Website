@@ -21,19 +21,22 @@ class Experiment < ActiveRecord::Base
 
 
 	def request_only_devices device_ids
-		device_ids = [] if device_ids.nil?
+		return if device_ids.nil?
+
+		device_ids = device_ids.map { |e| e.to_i}
 
 		self.device_experiments.each do |device_experiment|
 			if device_ids.include? device_experiment.device_id
 				device_ids -= [device_experiment.device_id]
 			else
-				#device_experiment.destroy
-				Device.find(device_experiment.device_id).check_in(self.id)
+				device_experiment.destroy
+				Device.find(device_experiment.device_id).checkin(self.id)
 			end
 		end
 		new_devices = []
 		device_ids.each do |id|
-			new_devices << Device.find(id)
+			device = Device.find(id)
+			new_devices << device
 		end
 
 		self.devices << new_devices
@@ -42,7 +45,14 @@ class Experiment < ActiveRecord::Base
 	def checkout_devices
 		puts 'checking out devices'
 		self.devices.each do |device|
-			device.checkout rescue return false
+			device.checkout(self.id) rescue return false
+		end
+		return true
+	end
+
+	def checkin_devices
+		self.devices.each do |device|
+			device.checkin(self.id) rescue return false
 		end
 		return true
 	end

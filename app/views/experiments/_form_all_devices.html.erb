@@ -1,0 +1,27 @@
+<div style="float:left">
+<%= semantic_form_for(@experiment) do |f| %>
+
+  <div class="field">
+    <%= f.hidden_field :checkout, :value => "none"%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Deactivate all" %>
+  </div>
+
+<% end %>
+</div>
+<div>
+<%= semantic_form_for(@experiment) do |f| %>
+
+  <div class="field">
+    <%= f.hidden_field :checkout, :value => "all"%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Activate all" %>
+  </div>
+
+<% end %>
+</div>
+<div style="">

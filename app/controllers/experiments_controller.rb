@@ -50,6 +50,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments/new
   def new
     @experiment = Experiment.new
+    @devices = Device.all
   end
 
   # GET /experiments/1/edit
@@ -61,9 +62,11 @@ class ExperimentsController < ApplicationController
   def create
     @experiment = Experiment.new(experiment_params)
 
+    
+
     respond_to do |format|
-      devices = Device.find(params[:experiment][:device_ids]) rescue []
-      @experiment.devices = devices
+      edit_helper()
+
       if @experiment.save
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
@@ -79,24 +82,9 @@ class ExperimentsController < ApplicationController
   def update
     respond_to do |format|
 
-      devices = Device.find(params[:experiment][:device_ids]) rescue []
-
-      @experiment.devices = devices if devices != []
-
-      if params[:experiment][:start] == "now"
-        params[:experiment][:start] = Time.now
-      end
-
-      if params[:experiment][:end] == "now"
-        params[:experiment][:end] = Time.now
-      end
+      edit_helper()
 
       updated = @experiment.update(experiment_params)
-
-      if @experiment.active?
-        updated &= @experiment.request_only_devices(params[:experiment][:device_ids])
-        @experiment.checkout_devices
-      end
 
       if updated
         format.html { redirect_to @experiment, notice: 'Experiment was successfully updated.' }
@@ -119,6 +107,36 @@ class ExperimentsController < ApplicationController
   end
 
   private
+
+    def edit_helper
+      @experiment.request_only_devices(params[:experiment][:device_ids])
+
+      if params[:experiment][:start] == "now"
+        @experiment.checkout_devices()
+        params[:experiment][:start] = Time.now
+      end
+
+      if params[:experiment][:end] == "now"
+        @experiment.checkin_devices()
+        params[:experiment][:end] = Time.now
+      end
+
+      if params[:experiment][:checkout] =="all"
+        @experiment.checkout_devices()
+      elsif params[:experiment][:checkout]=="none"
+        @experiment.checkin_devices()
+      end
+
+      #This code smells a bit...
+      if params[:experiment][:device_experiments_locs]
+        params[:experiment][:device_experiments_locs].each do |de_id, location|
+          de = DeviceExperiment.find(de_id)
+          de.location = location
+          de.save
+        end
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_experiment
       @experiment = Experiment.find(params[:id])
@@ -127,6 +145,7 @@ class ExperimentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
-      params.require(:experiment).permit(:name, :location, :start, :end, :device_ids, :co2_cutoff)
+      params.require(:experiment).permit(:name, :location, :start, :end,
+        {:device_ids => []}, :co2_cutoff)
     end
 end

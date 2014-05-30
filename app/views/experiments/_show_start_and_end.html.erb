@@ -1,0 +1,23 @@
+<% if @experiment.start.nil? %>
+  	<div>
+  		<%= render 'form_start' %>
+<% elsif @experiment.end.nil? %>
+  <p>
+    <strong>Start:</strong>
+    <%= @experiment.start %>
+  </p>
+  <p>
+  	<div>
+  		<%= render 'form_end' %>
+  	</div>
+
+<% else %>
+  <p>
+    <strong>Start:</strong>
+    <%= @experiment.start %>
+  </p>
+  <p>
+    <strong>End:</strong>
+  	<%= @experiment.end %>
+  </p>
+<% end %>

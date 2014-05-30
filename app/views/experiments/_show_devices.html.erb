@@ -1,0 +1,23 @@
+<% if not @experiment.device_experiments.first.nil? %>
+<%# If there is any devices attached to the experiment %>
+<p>
+  <table>
+<thead><tr>
+  <th><strong>Devices</strong></th> <th></th> <th>Location</th><tr>
+</thead>
+<tbody>
+	<% @experiment.device_experiments.each do |de| %>
+		<tr><td><%= de.device.name %>
+        </td>
+        <td><%= render 'form_device', device: de.device, experiment_id: @experiment.id %></td>
+        <td> <%= de.location %> </td>
+    </tr>
+	<% end %>
+</tbody>
+</table>
+<%= render 'form_all_devices' %>
+
+</p>
+<% else %>
+<p><br>This experiment doesn't appear to have any devices</p>
+<% end %>

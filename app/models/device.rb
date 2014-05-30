@@ -19,12 +19,12 @@ class Device < ActiveRecord::Base
 		throw "Couldn't save device #{id}" if not self.save
 	end
 
-	def check_in experiment_id
+	def checkin experiment_id
 		if experiment_id != self.experiment_id
-			return
+			return true
 		else
 			self.experiment_id = nil
-			self.save
+			return self.save
 		end
 	end
 
