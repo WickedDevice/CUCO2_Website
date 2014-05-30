@@ -1,0 +1,1 @@
+json.success @success ? "Data successfully uploaded." : "Uploading failed."

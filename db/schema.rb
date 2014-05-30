@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527153933) do
+ActiveRecord::Schema.define(version: 20140530161328) do
 
   create_table "device_experiments", force: true do |t|
     t.integer  "device_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140527153933) do
     t.datetime "end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "co2_cutoff"
   end
 
   create_table "sensor_data", force: true do |t|

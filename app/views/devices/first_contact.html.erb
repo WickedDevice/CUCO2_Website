@@ -8,7 +8,8 @@ start
 In_experiment:
 <%= @device.experiment_id %>
 
-<p> Cutoff (time or ppm) and associated info will go here </p>
+CO2_cutoff:
+<%= @device.experiment.co2_cutoff %>
 <% else %>
 Device is not in an experiment.
 <% end %>

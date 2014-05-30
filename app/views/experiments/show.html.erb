@@ -26,6 +26,11 @@
   <%= @experiment.location %>
 </p>
 
+<p>
+  <strong>CO2 Cutoff:</strong>
+  <%= @experiment.co2_cutoff %>
+</p>
+
 <% if @experiment.start.nil? %>
   	<div>
   		<%= render 'form_start' %>

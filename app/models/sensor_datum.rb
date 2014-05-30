@@ -32,17 +32,25 @@ class SensorDatum < ActiveRecord::Base
 		end
 
 		success = true
+
+		device = Device.find_by address: params[:device_address]
+		if(device.experiment_id == params[:experiment_id])
+			# This is probably bad practice...
+			device.experiment_id = nil
+			success &= device.save
+		end
+		
 		params[:ppm].each do |time, ppm|
 			sensor_datum = SensorDatum.new()
 			sensor_datum.experiment_id = params[:experiment_id]
-			sensor_datum.device_address = params[:device_address]
-			sensor_datum.resolve_device_id
+			sensor_datum.device = device
 
 			sensor_datum.ppm = ppm
-			sensor_datum.created_at = Time.at(time);
+			sensor_datum.created_at = Time.at(time.to_i);
 
 			success &= sensor_datum.save
 		end
+
 		return success
 	end
 end
