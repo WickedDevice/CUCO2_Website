@@ -1,3 +1,17 @@
+<%# This script probably shouldn't be here... %>
+<script type="text/javascript">
+var check_box_change = function(device_id) {
+  var check_box = document.querySelector("input[type='checkbox'][value='"+ device_id + "']");
+  var location = document.querySelector("#location_for_device_" + device_id);
+
+  if(check_box.checked && location != null) {
+     location.style['display'] = 'block';
+  } else {
+    location.style['display'] = 'none';
+  }
+}
+</script>
+
 <%= semantic_form_for(@experiment) do |f| %>
   <% if @experiment.errors.any? %>
     <div id="error_explanation">
@@ -48,20 +62,24 @@
     <tr>
       <td>
     <%= fields_for(device) do |device_f| %>
+    <% checked = @experiment.devices.include?(device) %>
     <%= device_f.label device.name %>
-    <%= check_box_tag("experiment[device_ids][]", device.id, @experiment.devices.include?(device)) %>
+    <%= check_box_tag("experiment[device_ids][]", device.id, checked, onchange: "check_box_change(#{device.id.to_s})") %>
       </td>
 
-      <td>
         <% de = DeviceExperiment.find_by(experiment_id: @experiment.id, device_id: device.id) %>
         <% if !de.nil? %>
+          <td>
           <%= fields_for(de) do |de_f| %>
             Location: <%= text_field_tag("experiment[device_experiments_locs][#{de.id}]", de.location )%>
           <% end %>
+          </td>
         <% else %>
-          Location: <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "Add a location") %>
+          <% display_location = checked ? "inline" : "none" %>
+          <td style='display:<%= display_location %>', id='<%= 'location_for_device_' + device.id.to_s %>'>
+            Location: <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "Add a location") %>
+          </td>
         <% end %>
-     <td>
 
 
     <% end %>
