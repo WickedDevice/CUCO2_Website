@@ -43,28 +43,31 @@
   <br>
   <%= f.label :devices %>
   <% if @devices %>
-  <ul>
+  <table>
     <% @devices.each do |device| %>
-    <li>
+    <tr>
+      <td>
     <%= fields_for(device) do |device_f| %>
     <%= device_f.label device.name %>
     <%= check_box_tag("experiment[device_ids][]", device.id, @experiment.devices.include?(device)) %>
+      </td>
 
-
-    <% de = DeviceExperiment.find_by(experiment_id: @experiment.id, device_id: device.id) %>
-    <% if !de.nil? %>
-    <%= fields_for(de) do |de_f| %>
-     Location: <%= text_field_tag("experiment[device_experiments_locs][#{de.id}]", de.location )%>
-     <% end %>
-     <% end %>
-
-
+      <td>
+        <% de = DeviceExperiment.find_by(experiment_id: @experiment.id, device_id: device.id) %>
+        <% if !de.nil? %>
+          <%= fields_for(de) do |de_f| %>
+            Location: <%= text_field_tag("experiment[device_experiments_locs][#{de.id}]", de.location )%>
+          <% end %>
+        <% else %>
+          Location: <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]") %>
+        <% end %>
+     <td>
 
 
     <% end %>
-    </li>
+    </tr>
     <% end %>
-  </ul>
+  </table>
   <% else %>
   <p>There appear to be no devices available.</p>
   <% end %>

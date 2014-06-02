@@ -130,9 +130,18 @@ class ExperimentsController < ApplicationController
       #This code smells a bit...
       if params[:experiment][:device_experiments_locs]
         params[:experiment][:device_experiments_locs].each do |de_id, location|
-          de = DeviceExperiment.find(de_id)
-          de.location = location
-          de.save
+          if de_id == "new" #Adds a location to the newly created device_experiment(s)
+            params[:experiment][:device_experiments_locs][:new].each do |device_id, new_location|
+              if de = DeviceExperiment.find_by(device_id: device_id, experiment_id: @experiment.id)
+                de.location = new_location
+                de.save
+              end
+            end
+          else
+            de = DeviceExperiment.find(de_id)
+            de.location = location
+            de.save
+          end
         end
       end
     end
