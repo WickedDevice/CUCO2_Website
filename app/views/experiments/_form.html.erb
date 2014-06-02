@@ -59,7 +59,7 @@
             Location: <%= text_field_tag("experiment[device_experiments_locs][#{de.id}]", de.location )%>
           <% end %>
         <% else %>
-          Location: <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]") %>
+          Location: <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "Add a location") %>
         <% end %>
      <td>
 

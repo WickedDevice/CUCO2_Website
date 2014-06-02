@@ -61,13 +61,14 @@ class ExperimentsController < ApplicationController
   # POST /experiments.json
   def create
     @experiment = Experiment.new(experiment_params)
+    success = @experiment.save
+    edit_helper()
 
-    
+    success &= @experiment.save
 
     respond_to do |format|
-      edit_helper()
-
-      if @experiment.save
+      
+      if success
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
       else
@@ -109,6 +110,8 @@ class ExperimentsController < ApplicationController
   private
 
     def edit_helper
+      #Deals with special cases in forms
+
       @experiment.request_only_devices(params[:experiment][:device_ids])
 
       if params[:experiment][:start] == "now"
