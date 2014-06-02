@@ -27,5 +27,18 @@
   <%= @device.notes %>
 </p>
 
+<p><br>
+  <strong>Past experiments:</strong>
+  <ul>
+  <% @device.device_experiments.each do |de| %>
+    <% if de.experiment %>
+    <li>
+      <%= link_to de.experiment.name, de.experiment %> (<%= de.location.nil? ? "No location" : de.location %>)
+    </li>
+    <%end %>
+  <% end %>
+  </ul>
+</p>
+
 <%= link_to 'Edit', edit_device_path(@device) %> |
 <%= link_to 'Back', devices_path %>
