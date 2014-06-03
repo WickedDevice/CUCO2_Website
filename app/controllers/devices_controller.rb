@@ -4,27 +4,31 @@ class DevicesController < ApplicationController
   # GET /devices
   # GET /devices.json
   def index
-    @devices = Device.all
+    @devices = policy_scope(Device)
   end
 
   # GET /devices/1
   # GET /devices/1.json
   def show
+    authorize @device
   end
 
   # GET /devices/new
   def new
+    authorize @device
     @device = Device.new
   end
 
   # GET /devices/1/edit
   def edit
+    authorize @device
   end
 
   # POST /devices
   # POST /devices.json
   def create
     @device = Device.new(device_params)
+    authorize @device
 
     respond_to do |format|
       if @device.save
@@ -40,7 +44,7 @@ class DevicesController < ApplicationController
   # PATCH/PUT /devices/1
   # PATCH/PUT /devices/1.json
   def update
-
+    authorize @device
 
     respond_to do |format|
       if @device.update(device_params)
@@ -60,6 +64,7 @@ class DevicesController < ApplicationController
   # DELETE /devices/1
   # DELETE /devices/1.json
   def destroy
+    authorize @device
     @device.destroy
     respond_to do |format|
       format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
@@ -68,10 +73,9 @@ class DevicesController < ApplicationController
   end
 
   def first_contact
-
-    #something like this
     @device = Device.find_by address: params[:address]
-    
+    authorize @device
+
     respond_to do |format|
       format.html {render(layout: false)}
     end

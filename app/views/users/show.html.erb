@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p><strong>User #<%= @user.id %> </strong></p>
+
+<p> <strong>Devices:</strong>
+  <ul>
+  <% @user.devices.each do |device| %>
+	<li>
+		<%= link_to device.name, device %>
+	</li>
+  <% end %>
+  </ul>
+</p>
+
+<p> <strong>Experiments:</strong>
+  <ul>
+  <% @user.experiments.each do |experiment| %>
+	<li>
+		<%= link_to experiment.name, experiment %>
+	</li>
+  <% end %>
+  </ul>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

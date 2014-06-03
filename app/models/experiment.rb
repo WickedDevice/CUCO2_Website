@@ -1,4 +1,5 @@
 class Experiment < ActiveRecord::Base
+	belongs_to :user
 	has_many :sensor_data
 	#has_many :devices #Don't want to use direct connection
 	has_many :device_experiments
@@ -57,10 +58,11 @@ class Experiment < ActiveRecord::Base
 		return true
 	end
 
-	def self.to_csv
+	def self.to_csv scope
+
 		CSV.generate do |csv|
 			csv << column_names
-			all.each do |experiment|
+			scope.each do |experiment|
 				csv << experiment.attributes.values_at(*column_names)
 			end
 		end
