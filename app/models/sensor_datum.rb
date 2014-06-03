@@ -4,13 +4,6 @@ class SensorDatum < ActiveRecord::Base
 
 	attr_accessor :device_address
 
-	def user_id
-		if !device.nil? and !device.user_id.nil?
-			return device.user_id
-		elsif !experiment.nil? and !experiment.user_id.nil?
-			return experiment.user_id.nil?
-		end
-	end
 
 	def resolve_device_id
 		if @device_address != nil && device_id.nil?

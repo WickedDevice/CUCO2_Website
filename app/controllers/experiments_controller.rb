@@ -49,9 +49,8 @@ class ExperimentsController < ApplicationController
 
   # GET /experiments/new
   def new
-    @experiment = Experiment.new(user_id: session[:current_user_id])
-    @devices = policy_scope Device
-    authorize @experiment
+    @experiment = Experiment.new
+    @devices = Device.all
   end
 
   # GET /experiments/1/edit
@@ -62,7 +61,6 @@ class ExperimentsController < ApplicationController
   # POST /experiments.json
   def create
     @experiment = Experiment.new(experiment_params)
-    authorize @experiment
     success = @experiment.save
     edit_helper()
 
@@ -160,6 +158,6 @@ class ExperimentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
       params.require(:experiment).permit(:name, :location, :start, :end,
-        {:device_ids => []}, :co2_cutoff).merge(user_id: current_user.id)
+        {:device_ids => []}, :co2_cutoff)
     end
 end
