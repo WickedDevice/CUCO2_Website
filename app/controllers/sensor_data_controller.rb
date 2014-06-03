@@ -5,7 +5,7 @@ class SensorDataController < ApplicationController
   # GET /sensor_data
   # GET /sensor_data.json
   def index
-    @sensor_data = policy_scope SensorDatum
+    @sensor_data = SensorDatum.all
 
     respond_to do |format|
       format.html
@@ -21,7 +21,6 @@ class SensorDataController < ApplicationController
   # GET /sensor_data/new
   def new
     @sensor_datum = SensorDatum.new
-    authorize @sensor_datum
   end
 
   # GET /sensor_data/1/edit
@@ -37,8 +36,7 @@ class SensorDataController < ApplicationController
      # => curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{"sensor_datum": {"ppm": "400", "device_address": "42"}}' localhost:3000/sensor_data.json
 
     @sensor_datum = SensorDatum.new(sensor_datum_params)
-    authorize @sensor_datum
-    
+
     @sensor_datum.resolve_device_id
     @sensor_datum.resolve_experiment_id
 
@@ -86,8 +84,9 @@ class SensorDataController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sensor_datum
-      @sensor_datum = SensorDatum.find(params[:id])
-      authorize @sensor_datum
+      if(params.has_key? :id) and params[:id].is_a? Fixnum
+        @sensor_datum = SensorDatum.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

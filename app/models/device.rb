@@ -1,5 +1,4 @@
 class Device < ActiveRecord::Base
-	belongs_to :user
 	belongs_to :experiment # This is the active experiment
 	has_many :device_experiments
 	has_many :experiments, :through => :device_experiments
