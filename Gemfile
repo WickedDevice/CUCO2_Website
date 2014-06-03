@@ -12,6 +12,9 @@ gem 'bootstrap-sass'
 # Use flot for displaying graphs
 #gem 'flot-rails', :git => "https://github.com/Kjarrigan/flot-rails.git"
 
+# Use pundit for authentication
+gem 'pundit'
+
 # Login using google #Not implemented
 gem "omniauth-google-oauth2", "~> 0.2.1"
 

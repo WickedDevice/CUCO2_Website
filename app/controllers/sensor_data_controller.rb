@@ -5,7 +5,7 @@ class SensorDataController < ApplicationController
   # GET /sensor_data
   # GET /sensor_data.json
   def index
-    @sensor_data = SensorDatum.all
+    @sensor_data = policy_scope SensorDatum
 
     respond_to do |format|
       format.html
@@ -84,8 +84,9 @@ class SensorDataController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sensor_datum
-      if(params.has_key? :id) and params[:id].is_a? Fixnum
+      if(params.has_key? :id)
         @sensor_datum = SensorDatum.find(params[:id])
+        authorize @sensor_datum
       end
     end
 

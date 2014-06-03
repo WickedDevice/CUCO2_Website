@@ -3,7 +3,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments
   # GET /experiments.json
   def index
-    @experiments = Experiment.all
+    @experiments = policy_scope Experiment
     respond_to do |format|
       format.html
       format.csv { render text: @experiments.to_csv}
@@ -154,7 +154,8 @@ class ExperimentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_experiment
       @experiment = Experiment.find(params[:id])
-      @devices = Device.all
+      authorize @experiment
+      @devices = policy_scope Device
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
