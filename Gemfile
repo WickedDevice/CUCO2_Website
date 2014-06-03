@@ -20,7 +20,7 @@ gem "omniauth-google-oauth2", "~> 0.2.1"
 gem "formtastic-bootstrap"
 
 group :development, :test do
-	gem 'rspec-rails'
+	gem 'rspec-rails', '~>2.14.2'
 end
 
 group :test do

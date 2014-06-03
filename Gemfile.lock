@@ -202,7 +202,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-google-oauth2 (~> 0.2.1)
   rails (= 4.1.1)
-  rspec-rails
+  rspec-rails (~> 2.14.2)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   selenium-webdriver
