@@ -1,7 +1,9 @@
 class SensorDatum < ActiveRecord::Base
+	validates :ppm, numericality: { only_integer: true }
 	belongs_to :device
 	belongs_to :experiment
 
+	@device_address = nil
 	attr_accessor :device_address
 
 	def user_id
@@ -13,7 +15,7 @@ class SensorDatum < ActiveRecord::Base
 	end
 
 	def resolve_device_id
-		if @device_address != nil && device_id.nil?
+		if !@device_address.nil? && device_id.nil?
 			self.device = Device.find_by address: @device_address
 		end
 	end

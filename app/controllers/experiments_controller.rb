@@ -3,7 +3,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments
   # GET /experiments.json
   def index
-    @experiments = policy_scope Experiment
+    @experiments = policy_scope Experiment.all
     respond_to do |format|
       format.html
       format.csv { render text: @experiments.to_csv}
@@ -155,7 +155,7 @@ class ExperimentsController < ApplicationController
     def set_experiment
       @experiment = Experiment.find(params[:id])
       authorize @experiment
-      @devices = policy_scope Device
+      @devices = policy_scope Device.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

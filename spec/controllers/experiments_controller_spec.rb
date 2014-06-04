@@ -23,18 +23,19 @@ describe ExperimentsController do
   # This should return the minimal set of attributes required to create a valid
   # Experiment. As you add validations to Experiment, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "MyString" } }
+  let(:valid_attributes) { { "name" => "MyString", "user_id" => 1 } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ExperimentsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { create_test_session() }
 
   describe "GET index" do
     it "assigns all experiments as @experiments" do
+      current_data = Experiment.all.to_a
       experiment = Experiment.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:experiments).should eq([experiment])
+      assigns(:experiments).should eq(current_data + [experiment])
     end
   end
 
@@ -106,8 +107,8 @@ describe ExperimentsController do
         # specifies that the Experiment created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Experiment.any_instance.should_receive(:update).with({ "name" => "MyString" })
-        put :update, {:id => experiment.to_param, :experiment => { "name" => "MyString" }}, valid_session
+        Experiment.any_instance.should_receive(:update).with({ "name" => "MyString", "user_id" => 1 })
+        put :update, {:id => experiment.to_param, :experiment => { "name" => "MyString"}}, valid_session
       end
 
       it "assigns the requested experiment as @experiment" do

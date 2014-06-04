@@ -4,7 +4,7 @@ class DevicesController < ApplicationController
   # GET /devices
   # GET /devices.json
   def index
-    @devices = policy_scope Device
+    @devices = policy_scope(Device.all)
   end
 
   # GET /devices/1
@@ -69,10 +69,8 @@ class DevicesController < ApplicationController
   end
 
   def first_contact
-
-    #something like this
     @device = Device.find_by address: params[:address]
-    
+    #Don't authorize
     respond_to do |format|
       format.html {render(layout: false)}
     end
@@ -82,6 +80,7 @@ class DevicesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_device
       @device = Device.find(params[:id])
+      authorize @device
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

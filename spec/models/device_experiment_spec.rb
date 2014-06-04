@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe DeviceExperiment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  DeviceExperiment.create(location: "Somewhere in somewhere", experiment_id: 1, device_id: 1)
 end

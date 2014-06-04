@@ -24,24 +24,25 @@ RSpec.describe DevicesController, :type => :controller do
   # Device. As you add validations to Device, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {name: "Test device"}
+    {name: "Test device", "user_id" => 1}
   }
 
   let(:invalid_attributes) {
-    pending "Missing invalid attributes"
-    {name: "Supposably invalid..."}
+    {name: "Other attributes are invalid", user_id: "Not_a_num", experiment_id: "Also not a number"}
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # DevicesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { create_test_session() }
 
   describe "GET index" do
     it "assigns all devices as @devices" do
+      old_count = Device.count
       device = Device.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:devices)).to eq([device])
+      expect(Device.count).to eq(old_count+1)
+      expect(assigns(:devices)).to eq(Device.all)
     end
   end
 
@@ -104,14 +105,14 @@ RSpec.describe DevicesController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        pending("Add a hash of attributes valid for your model")
+        valid_attributes.merge(name: "New Test Device")
       }
 
       it "updates the requested device" do
         device = Device.create! valid_attributes
         put :update, {:id => device.to_param, :device => new_attributes}, valid_session
         device.reload
-        pending("Add assertions for updated state")
+        expect(device.name).to eq("New Test Device")
       end
 
       it "assigns the requested device as @device" do

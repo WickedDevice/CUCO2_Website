@@ -24,6 +24,7 @@ gem "formtastic-bootstrap"
 
 group :development, :test do
 	gem 'rspec-rails', '~>2.14.2'
+	gem 'database_cleaner'
 end
 
 group :test do

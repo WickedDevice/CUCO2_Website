@@ -23,18 +23,18 @@ describe SensorDataController do
   # This should return the minimal set of attributes required to create a valid
   # SensorDatum. As you add validations to SensorDatum, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "ppm" => "1" } }
+  let(:valid_attributes) { { "ppm" => "1", "experiment_id" => "1", "device_id" => "1" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SensorDataController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { create_test_session() }
 
   describe "GET index" do
     it "assigns all sensor_data as @sensor_data" do
       sensor_datum = SensorDatum.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:sensor_data).should eq([sensor_datum])
+      assigns(:sensor_data).should eq(SensorDatum.all.to_a)
     end
   end
 
@@ -85,7 +85,7 @@ describe SensorDataController do
       it "assigns a newly created but unsaved sensor_datum as @sensor_datum" do
         # Trigger the behavior that occurs when invalid params are submitted
         SensorDatum.any_instance.stub(:save).and_return(false)
-        post :create, {:sensor_datum => { "ppm" => "invalid value" }}, valid_session
+        post :create, {:sensor_datum => { :ppm => "invalid value" }}, valid_session
         assigns(:sensor_datum).should be_a_new(SensorDatum)
       end
 
@@ -136,7 +136,7 @@ describe SensorDataController do
         sensor_datum = SensorDatum.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         SensorDatum.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sensor_datum.to_param, :sensor_datum => { "ppm" => "invalid value" }}, valid_session
+        put :update, {:id => sensor_datum.to_param, :sensor_datum => { :ppm => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

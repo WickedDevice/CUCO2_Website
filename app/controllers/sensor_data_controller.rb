@@ -2,10 +2,12 @@ class SensorDataController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :set_sensor_datum, only: [:show, :edit, :update, :destroy]
 
+  skip_after_action :verify_authorized, :only => :batch_create
+
   # GET /sensor_data
   # GET /sensor_data.json
   def index
-    @sensor_data = policy_scope SensorDatum
+    @sensor_data = policy_scope SensorDatum.all
 
     respond_to do |format|
       format.html
@@ -21,6 +23,7 @@ class SensorDataController < ApplicationController
   # GET /sensor_data/new
   def new
     @sensor_datum = SensorDatum.new
+    authorize @sensor_datum
   end
 
   # GET /sensor_data/1/edit
@@ -29,13 +32,14 @@ class SensorDataController < ApplicationController
 
   # POST /sensor_data
   # POST /sensor_data.json
-   def create
+  def create
 
      #Can also be created with:
      # => curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{"sensor_datum": {"ppm": "400","device_id": "1"}}' localhost:3000/sensor_data.json
      # => curl -X POST -H "Content-Type: application/json; charset=UTF-8" -d '{"sensor_datum": {"ppm": "400", "device_address": "42"}}' localhost:3000/sensor_data.json
 
     @sensor_datum = SensorDatum.new(sensor_datum_params)
+    authorize @sensor_datum
 
     @sensor_datum.resolve_device_id
     @sensor_datum.resolve_experiment_id
@@ -61,7 +65,7 @@ class SensorDataController < ApplicationController
   # PATCH/PUT /sensor_data/1.json
   def update
     respond_to do |format|
-      if @sensor_datum.update(params[:sensor_datum])
+      if @sensor_datum.update(sensor_datum_params)
         format.html { redirect_to @sensor_datum, notice: 'Sensor datum was successfully updated.' }
         format.json { render :show, status: :ok, location: @sensor_datum }
       else
@@ -92,6 +96,6 @@ class SensorDataController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_datum_params
-      params.require(:sensor_datum).permit(:ppm, :device_id, :device_address, :experiment_id, :sensor_datum => [:ppm => []])
+      params.require(:sensor_datum).permit(:ppm, :device_id, :experiment_id, :device_address)#, :sensor_datum => [:ppm => []])
     end
 end
