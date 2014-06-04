@@ -55,8 +55,12 @@ class SensorDataController < ApplicationController
     end
   end
 
-  def batch_create # Probably won't work...
+  def batch_create
     @success = SensorDatum.batch_create(params[:sensor_datum])
+
+    if(params[:sensor_datum][:experiment_ended] == "true")
+      Device.find_by(address: params[:sensor_datum][:device_address]).checkin(params[:sensor_datum][:experiment_id].to_i)
+    end
 
     render :batch_create, layout: false
   end

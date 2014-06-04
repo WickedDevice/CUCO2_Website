@@ -1,6 +1,8 @@
 class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
+  skip_after_action :verify_authorized, :only => :first_contact
+
   # GET /devices
   # GET /devices.json
   def index
