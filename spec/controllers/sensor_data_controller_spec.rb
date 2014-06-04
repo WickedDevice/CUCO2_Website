@@ -32,7 +32,7 @@ describe SensorDataController do
 
   describe "GET index" do
     it "assigns all sensor_data as @sensor_data" do
-      sensor_datum = SensorDatum.create! valid_attributes
+      SensorDatum.create! valid_attributes
       get :index, {}, valid_session
       assigns(:sensor_data).should eq(SensorDatum.all.to_a)
     end

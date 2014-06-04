@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
-  before_action :printstuff
+  #before_action :printstuff
   after_action :verify_authorized, :except => :index
   after_action :verify_policy_scoped, :only => :index
   # Prevent CSRF attacks by raising an exception.
@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
 
   private
   def current_user
+
+    @current_user = nil if session[:current_user_id].nil?
     @current_user ||= User.find(session[:current_user_id]) if session[:current_user_id]
   end
 

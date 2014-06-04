@@ -1,7 +1,8 @@
 class DevicePolicy < ApplicationPolicy
   class Scope < Struct.new(:user, :scope)
     def resolve
-      scope
+      return scope.none if user.nil?
+      scope.where(user_id: user.id)
     end
   end
 end

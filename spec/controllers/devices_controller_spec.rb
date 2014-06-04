@@ -39,10 +39,10 @@ RSpec.describe DevicesController, :type => :controller do
   describe "GET index" do
     it "assigns all devices as @devices" do
       old_count = Device.count
-      device = Device.create! valid_attributes
+      Device.create! valid_attributes
       get :index, {}, valid_session
       expect(Device.count).to eq(old_count+1)
-      expect(assigns(:devices)).to eq(Device.all)
+      expect(assigns(:devices)).to eq(Device.all.to_a)
     end
   end
 

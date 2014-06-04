@@ -4,6 +4,14 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'pundit/rspec'
+
+def quash_warnings
+  # Pundit uses some uninitialized variables
+  # So turning off warnings makes a much cleaner test run.
+  warn "Quashing warnings..."
+  $VERBOSE = nil
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -13,6 +21,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  quash_warnings
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -69,15 +78,8 @@ end
 
 
 def create_test_session()
-  p "$VERBOSE:" + $VERBOSE.to_s
+  if($VERBOSE)
+    quash_warnings
+  end
   return {current_user_id: 1}
 end
-
-def quash_warnings
-  # Pundit uses some uninitialized variables
-  # So turning off warnings makes a much cleaner test run.
-  warn "Quashing warnings..."
-  ActiveSupport::Deprecation.silenced = true
-  $VERBOSE = false
-end
-quash_warnings
