@@ -64,7 +64,7 @@ var check_box_change = function(device_id) {
     <%= fields_for(device) do |device_f| %>
     <% checked = @experiment.devices.include?(device) %>
     <%= device_f.label device.name %>
-    <%= check_box_tag("experiment[device_ids][]", device.id, checked, onchange: "check_box_change(#{device.id.to_s})") %>
+    <%= check_box_tag("experiment[device_ids][]", device.id, checked, onchange: "check_box_change(#{device.id.to_s})", disabled: checked) %>
       </td>
 
         <% de = DeviceExperiment.find_by(experiment_id: @experiment.id, device_id: device.id) %>

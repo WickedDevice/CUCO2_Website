@@ -114,7 +114,8 @@ class ExperimentsController < ApplicationController
     def edit_helper
       #Deals with special cases in forms
 
-      @experiment.request_only_devices(params[:experiment][:device_ids])
+      #@experiment.request_only_devices(params[:experiment][:device_ids])
+      @experiment.request_additional_devices(params[:experiment][:device_ids])
 
       if params[:experiment][:start] == "now"
         @experiment.checkout_devices()
@@ -161,6 +162,7 @@ class ExperimentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
       params.require(:experiment).permit(:name, :location, :start, :end,
-        {:device_ids => []}, :co2_cutoff).merge(user_id: current_user.id)
+        :co2_cutoff).merge(user_id: current_user.id)
+        #{:device_ids => []}, # If this is included, ActiveRecord deletes the devices that don't have data submitted for them on update.
     end
 end

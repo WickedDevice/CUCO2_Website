@@ -1,7 +1,7 @@
 class Experiment < ActiveRecord::Base
 	has_many :sensor_data
 	#has_many :devices #Don't want to use direct connection
-	has_many :device_experiments
+	has_many :device_experiments, dependent: :destroy
 
 	has_many :devices, :through => :device_experiments
 	accepts_nested_attributes_for :devices
@@ -29,10 +29,18 @@ class Experiment < ActiveRecord::Base
 			if device_ids.include? device_experiment.device_id
 				device_ids -= [device_experiment.device_id]
 			else
-				device_experiment.destroy
+				#device_experiment.destroy
 				Device.find(device_experiment.device_id).checkin(self.id)
 			end
 		end
+		
+		request_additional_devices device_ids
+	end
+
+	def request_additional_devices device_ids
+		return if device_ids.nil?
+		device_ids = device_ids.map { |e| e.to_i}
+
 		new_devices = []
 		device_ids.each do |id|
 			device = Device.find(id)
