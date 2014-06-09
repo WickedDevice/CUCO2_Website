@@ -1,11 +1,14 @@
 <%# Expects device and experiment_id to be defined%>
-<% if device.experiment_id == experiment_id
+<%    
+    if device.experiment_id == experiment_id
       label = "Deactivate"
       value = nil
     else
       label = "Activate"
       value = @experiment.id
-    end%>
+    end
+
+    %>
 
 <%= semantic_form_for(device) do |f| %>
  <% if device.errors.any? %>
@@ -24,7 +27,7 @@
     <%= f.hidden_field :experiment_id, :value => value%>
   </div>
 
-  <div class="actions">
+  <div class="actions" style="margin:0">
     <%= f.submit label %>
   </div>
 
