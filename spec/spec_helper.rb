@@ -62,6 +62,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    quash_warnings
   end
 
   config.after(:each) do

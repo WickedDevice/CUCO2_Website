@@ -1,0 +1,25 @@
+<% provide :title, 'Sign up' %>
+<h1>Sign up</h1>
+
+<%= render "error_messages" %>
+
+<%= form_for(@user) do |f| %>
+
+<div class="field">
+	<%= f.label :name, "Username" %><br>
+	<%= f.text_field :name %>
+</div>
+
+<div class="field">
+	<%= f.label :password %><br>
+	<%= f.password_field :password %>
+</div>
+
+<div class="field">
+	<%= f.label :password_confirmation, "Password Confirmation" %><br>
+	<%= f.password_field :password_confirmation %>
+</div>
+<div class="actions">
+	<%= f.submit "Create an account" %>
+</div>
+<% end %>

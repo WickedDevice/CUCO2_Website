@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Experiment do
+describe UsersController do
 
 end
