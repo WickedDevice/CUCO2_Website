@@ -7,7 +7,7 @@ class ExperimentsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv {
-        send_data( Experiment.to_csv,
+        send_data( @experiments.to_csv,
           filename: "CO2_by_experiment_#{Time.zone.now}.csv", 
           disposition: 'inline', type: "multipart/related")
       }
