@@ -1,9 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong><br>
-  <%= @user.name %>
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<h1 style="text-align:center;"> Dashboard </h1>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<%= render "devices_column" %>
+		</div>
+		<div class="col-sm-6">
+			<%= render "experiments_column" %>
+		</div>
+	</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+</div>

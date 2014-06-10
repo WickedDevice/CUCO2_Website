@@ -4,7 +4,7 @@ describe User do
   User.create()
 
   before do
-  	@user = User.new(name: "Example user for tests", password: "password", password_confirmation: "password")
+  	@user = User.new(name: "Example_user_for_tests", password: "password", password_confirmation: "password")
   end
 
   subject { @user }

@@ -9,6 +9,7 @@
 <p>
 	<strong>Current Experiment:</strong>
 	<%= link_to @device.experiment.name, @device.experiment %>
+  (<%= render "form_remove_from_experiment" %>)
 </p>
 <% elsif !@device.experiment.nil? %>
 <p>
@@ -23,7 +24,7 @@
 </p>
 
 <p>
-  <strong>Notes:</strong>
+  <strong>Notes:</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;
   <%= @device.notes %>
 </p>
 

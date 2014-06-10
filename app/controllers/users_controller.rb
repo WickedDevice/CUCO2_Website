@@ -66,6 +66,8 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      @experiments = policy_scope Experiment.all
+      @devices = policy_scope Device.all
       @user = User.find(params[:id])
       authorize @user
     end

@@ -10,11 +10,10 @@
 			</nav>
 			<nav>
 				<ul class="nav navbar-right navbar-nav">
-					<li><%= link_to "Sensor Data", sensor_data_path %></li>
 					<li><%= link_to "Devices", devices_path %></li>
 					<li><%= link_to "Experiments", experiments_path %></li>
-					<li style="padding:10px"></li>
-					<li style="font-size:120%"><%= current_user.nil? ? link_to("Login", "sessions/new") : link_to(current_user.name, current_user) %>
+					<li class="divider-vertical"></li>
+					<li style="font-size:120%"><%= current_user.nil? ? link_to("Login", { :controller => "sessions", :action => "new" }) : link_to(current_user.name, current_user) %>
 				</ul>
 			</nav>
 		</div>

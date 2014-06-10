@@ -1,4 +1,6 @@
 class Experiment < ActiveRecord::Base
+	validates :name, presence: true
+
 	has_many :sensor_data
 	#has_many :devices #Don't want to use direct connection
 	has_many :device_experiments, dependent: :destroy
