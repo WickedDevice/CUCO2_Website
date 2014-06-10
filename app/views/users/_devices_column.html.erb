@@ -1,0 +1,16 @@
+<div>
+	<h3>Devices:</h3>
+	<table>
+		<thead>
+			<th>Name</th>
+			<th>Current Experiment</th>
+		</thead>
+		<tbody>
+	<% @devices.each do |device| %>
+		<tr><td><%= link_to device.name, device %></td>
+			<td>
+			<%= device.in_experiment? ? link_to(device.experiment.name, device.experiment) : "None" %></td>
+		</tr>
+	<% end %>
+	</tbody></table>
+</div>

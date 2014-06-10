@@ -1,0 +1,30 @@
+<div>
+	<h3>Recent experiments:</h3>
+	<table>
+		<thead>
+			
+		</thead>
+		<tbody>
+		<% @experiments.last(10).each do |experiment| %>
+			<tr>
+				<td> <%= link_to experiment.name, experiment %> </td>
+				<td>
+					<%= experiment.location %>
+				</td>
+				<td> <%= if experiment.active?
+							"Active"
+						elsif experiment.end.nil?
+							"Not begun"
+						else
+							"Finished"
+						end %>
+					</td>
+			</tr>
+		<% end %>
+
+	</tbody></table>
+		<div style="margin-top:1em;">
+			<%= link_to "View all experiments", experiments_path %> <br><br>
+			<%= link_to "Create new experiment", new_experiment_path %>
+		</div>
+</div>
