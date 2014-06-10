@@ -6,7 +6,11 @@ class ExperimentsController < ApplicationController
     @experiments = policy_scope Experiment.all
     respond_to do |format|
       format.html
-      format.csv { render text: @experiments.to_csv}
+      format.csv {
+        send_data( Experiment.to_csv,
+          filename: "CO2_by_experiment_#{Time.zone.now}.csv", 
+          disposition: 'inline', type: "multipart/related")
+      }
     end
   end
 
@@ -41,8 +45,9 @@ class ExperimentsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv {
-        render text: @experiment.to_csv
-        return
+        send_data @experiment.to_csv,
+          filename: "#{@experiment.id}-#{@experiment.name}.csv", 
+          disposition: 'inline', type: "multipart/related"
       }
     end
   end
@@ -134,7 +139,7 @@ class ExperimentsController < ApplicationController
       end
 
       #This code smells a bit...
-      if params[:experiment][:device_experiments_locs]
+      if params[:experiment][:device_experiments_locs] #locs is locations
         params[:experiment][:device_experiments_locs].each do |de_id, location|
           if de_id == "new" #Adds a location to the newly created device_experiment(s)
             params[:experiment][:device_experiments_locs][:new].each do |device_id, new_location|

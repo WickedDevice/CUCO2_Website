@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :sessions, only: [:create, :new]
+  post 'sessions/destroy', to: 'sessions#destroy'
+  get 'sessions/destroy', to: 'sessions#destroy'
+  
   get 'welcome/index'
 
 
@@ -16,10 +20,7 @@ Rails.application.routes.draw do
 
   post 'sensor_data/batch_create/:device_address', to: 'sensor_data#batch_create'
   get 'sensor_data/batch_create/:device_address', to: 'sensor_data#batch_create'
-  
-  post 'sessions/create'
-  post 'sessions/destroy'
-  
+    
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

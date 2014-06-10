@@ -66,23 +66,58 @@ class Experiment < ActiveRecord::Base
 	end
 
 	def self.to_csv
-		CSV.generate do |csv|
-			csv << column_names
-			all.each do |experiment|
-				csv << experiment.attributes.values_at(*column_names)
-			end
+		csv = ""
+		all.each do |experiment|
+			csv << experiment.to_csv << "\n\n"
 		end
+		csv
 	end
 
 	def to_csv
 		CSV.generate do |csv|
-			csv << ["Experiment #{self.name} at #{self.location}"]
+			csv << ["Experiment:",self.name, "Location:", self.location]
 			csv << ["Start:", self.start.to_s, "End:", self.end.to_s]
 			csv << [""]
-			csv << SensorDatum.column_names
+			csv << ["Parts per million of CO2"]
+
+			#This fairly slow
+			rows = {}
 			self.sensor_data.each do |datum|
-				csv << datum.attributes.values_at(*SensorDatum.column_names)
+				if rows.has_key? datum.created_at
+					rows[datum.created_at][datum.device_id] = datum.ppm
+				else
+					rows[datum.created_at] = { datum.device_id => datum.ppm }
+				end
 			end
+
+			column_names = ["Time"]
+			des = self.device_experiments
+			des.each do |de|
+				column_names << de.location
+			end
+
+			csv << column_names
+
+			rows.each do |time, value|
+				row_data = [time]
+				des.each do |de|
+					row_data << value[de.id] || ""
+				end
+				csv << row_data
+			end
+
+
+=begin
+			self.device_experiments.each do |de|
+						#Not very fast
+				data_at_location = SensorDatum.where device_id: de.device_id, experiment_id: de.experiment_id
+				csv << [de.location, "Time:", "ppm"]
+				data_at_location.each do |datum|
+					csv << ["", datum.created_at, datum.ppm]
+				end
+				csv << [""]
+			end
+=end
 		end
 	end
 

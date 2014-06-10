@@ -11,7 +11,10 @@ class SensorDataController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { render text: @sensor_data.to_csv}
+      format.csv {         send_data( @sensor_data.to_csv,
+          filename: "CO2_datapoints_#{Time.zone.now}.csv", 
+          disposition: 'inline', type: "multipart/related")
+      }
     end
   end
 

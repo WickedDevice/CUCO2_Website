@@ -28,9 +28,11 @@ class SensorDatum < ActiveRecord::Base
 
 	def self.to_csv
 		CSV.generate do |csv|
-			csv << column_names
+			csv << ["CO2 data as of #{Time.zone.now}"]
+			csv << ["ppm","Time measured", "Experiment","Experiment location", "Sensor location", "Device"]
 			all.each do |datum|
-				csv << datum.attributes.values_at(*column_names)
+				location = DeviceExperiment.find_by(experiment_id: datum.experiment_id, device_id: datum.device_id).location
+				csv << [datum.ppm, datum.created_at, datum.experiment.name, datum.experiment.location, location, datum.device.name]
 			end
 		end
 	end

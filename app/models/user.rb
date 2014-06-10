@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 	has_many :devices
 	has_many :experiments
 	has_secure_password
+
 	def user_id
 		id
 	end
