@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require raphael-min
 //= require morris.min
+//= require bootstrap
 //= require_tree .
