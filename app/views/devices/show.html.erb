@@ -6,16 +6,11 @@
 </p>
 
 <% if @device.in_experiment? %>
-<p>
+  <p></p>
 	<strong>Current Experiment:</strong>
 	<%= link_to @device.experiment.name, @device.experiment %>
   (<%= render "form_remove_from_experiment" %>)
-</p>
-<% elsif !@device.experiment.nil? %>
-<p>
-	<strong>Most Recent Experiment:</strong>
-	<%= link_to @device.experiment.name, @device.experiment %>
-</p>
+  <p></p>
 <% end %>
 
 <p>
