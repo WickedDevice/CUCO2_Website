@@ -166,7 +166,7 @@ class ExperimentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def experiment_params
-      params.require(:experiment).permit(:name, :location, :start, :end,
+      params.require(:experiment).permit(:name, :location, :start, :end, :details,
         :co2_cutoff).merge(user_id: current_user.id)
         #{:device_ids => []}, # If this is included, ActiveRecord deletes the devices that don't have data submitted for them on update.
     end

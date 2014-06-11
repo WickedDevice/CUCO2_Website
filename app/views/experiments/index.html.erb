@@ -1,7 +1,7 @@
 <h1>Listing experiments</h1>
 
 <p>
-  Download:
+  Download all:
   <%= link_to "CSV", experiments_path(format: "csv") %>
 </p>
 
@@ -19,7 +19,7 @@
   <tbody>
     <% @experiments.each do |experiment| %>
       <tr>
-        <td><%= experiment.name %></td>
+        <td><%= link_to experiment.name, experiment %></td>
         <td><%= experiment.location %></td>
         <td><%= experiment.start %></td>
         <td><%= experiment.end.nil? ? "Not ended" : experiment.end %></td>

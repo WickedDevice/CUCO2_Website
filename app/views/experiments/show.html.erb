@@ -32,6 +32,11 @@
 
 <%= render 'show_start_and_end' %>
 
+<p>
+	<strong>Details:</strong> <br> &nbsp;&nbsp;&nbsp;&nbsp;
+	<%= @experiment.details %>
+</p>
+
 <%= render 'show_devices' %>
 
 <%= link_to 'Edit', edit_experiment_path(@experiment) %> |
