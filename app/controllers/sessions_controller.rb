@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
 	skip_after_action :verify_authorized
+	skip_before_action :logged_out_redirect
 
 	def create
 		user = User.find_by(name: params[:session][:name])

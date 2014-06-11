@@ -2,7 +2,7 @@ class SensorDataController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :set_sensor_datum, only: [:show, :edit, :update, :destroy]
 
-  skip_after_action :verify_authorized, :only => :batch_create
+  skip_after_action :verify_authorized, only: :batch_create
 
   # GET /sensor_data
   # GET /sensor_data.json

@@ -2,6 +2,7 @@ class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
   skip_after_action :verify_authorized, :only => :first_contact
+  skip_before_action :logged_out_redirect, only: :first_contact
 
   # GET /devices
   # GET /devices.json

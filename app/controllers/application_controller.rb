@@ -1,18 +1,16 @@
 class ApplicationController < ActionController::Base
   include Pundit
   include SessionsHelper
-  #before_action :printstuff
+
+  before_action :logged_out_redirect
   after_action :verify_authorized, :except => :index
   after_action :verify_policy_scoped, :only => :index
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-
-  def printstuff
-  	#delete soon
-  	print 'nil' if current_user.nil?
-  	print current_user.id unless current_user.nil?
+  def logged_out_redirect
+    redirect_to(root_path) if current_user.nil?
   end
 
   def user_not_authorized
