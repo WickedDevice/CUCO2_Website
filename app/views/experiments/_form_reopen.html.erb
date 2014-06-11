@@ -1,4 +1,4 @@
-<%= semantic_form_for(@experiment, html: {:onsubmit => "return confirm('Are you sure you want to end the experiment?\t(this will not prevent currently active devices from reporting any data they have already collected)');" }) do |f| %>
+<%= semantic_form_for(@experiment) do |f| %>
  <% if @experiment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.hidden_field :end, :value => "now"%>
+    <%= f.hidden_field :end, :value => "nil"%>
   </div>
 
   <div class="actions">
-    <%= f.submit "End Experiment" %>
+    <%= f.submit "Reopen Experiment" %>
   </div>
 
 <% end %>

@@ -30,7 +30,7 @@ var check_box_change = function(device_id) {
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :location %><br>
+    <%= f.label :location, "Experiment location" %><br>
     <%= f.text_field :location %>
   </div>
   <div class="field">
@@ -55,36 +55,42 @@ var check_box_change = function(device_id) {
 
 <div>
   <br>
-  <%= f.label :devices %>
   <% if @devices %>
   <table>
-    <% @devices.each do |device| %>
-    <tr>
-      <td>
-    <%= fields_for(device) do |device_f| %>
-    <% checked = @experiment.devices.include?(device) %>
-    <%= device_f.label device.name %>
-    <%= check_box_tag("experiment[device_ids][]", device.id, checked, onchange: "check_box_change(#{device.id.to_s})", disabled: checked) %>
-      </td>
+    <thead>
+      <th><%= f.label :devices %><th></th></th><th>Location in room</th>
+    </thead>
+    <tbody>
+      <% @devices.each do |device| %>
+      <tr>
+        <td>
+      <%= fields_for(device) do |device_f| %>
+      <% checked = @experiment.devices.include?(device) %>
+      <%= device_f.label device.name %>
+        </td>
+        <td>
+          <%= check_box_tag("experiment[device_ids][]", device.id, checked, onchange: "check_box_change(#{device.id.to_s})", disabled: checked) %>
+        </td>
+          <% de = DeviceExperiment.find_by(experiment_id: @experiment.id, device_id: device.id) %>
 
-        <% de = DeviceExperiment.find_by(experiment_id: @experiment.id, device_id: device.id) %>
-        <% if !de.nil? %>
-          <td>
-          <%= fields_for(de) do |de_f| %>
-            Location: <%= text_field_tag("experiment[device_experiments_locs][#{de.id}]", de.location )%>
+          <% if !de.nil? %>
+            <td>
+            <%= fields_for(de) do |de_f| %>
+              <%= text_field_tag("experiment[device_experiments_locs][#{de.id}]", de.location )%>
+            <% end %>
+            </td>
+          <% else %>
+            <% display_location = checked ? "inline" : "none" %>
+            <td style='display:<%= display_location %>', id='<%= 'location_for_device_' + device.id.to_s %>'>
+              <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "Add a location") %>
+            </td>
           <% end %>
-          </td>
-        <% else %>
-          <% display_location = checked ? "inline" : "none" %>
-          <td style='display:<%= display_location %>', id='<%= 'location_for_device_' + device.id.to_s %>'>
-            Location: <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "Add a location") %>
-          </td>
-        <% end %>
 
 
-    <% end %>
-    </tr>
-    <% end %>
+      <% end %>
+      </tr>
+      <% end %>
+    </tbody>
   </table>
   <% else %>
   <p>There appear to be no devices available.</p>

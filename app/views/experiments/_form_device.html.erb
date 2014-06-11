@@ -3,14 +3,16 @@
     if device.experiment_id == experiment_id
       label = "Deactivate"
       value = nil
+      form_html = "return confirm('Are you sure you want to deactivate this device?');"
     else
       label = "Activate"
       value = @experiment.id
+      form_html = ""
     end
 
     %>
 
-<%= semantic_form_for(device) do |f| %>
+<%= semantic_form_for(device, html: { :onsubmit => form_html }) do |f| %>
  <% if device.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(device.errors.count, "error") %> prohibited this device from being saved:</h2>

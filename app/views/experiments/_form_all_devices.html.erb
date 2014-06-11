@@ -1,5 +1,5 @@
 <div style="float:left">
-<%= semantic_form_for(@experiment) do |f| %>
+<%= semantic_form_for(@experiment, html: {:onsubmit => "return confirm('Are you sure you want to deactivate all devices?');" }) do |f| %>
 
   <div class="field">
     <%= f.hidden_field :checkout, :value => "none"%>
