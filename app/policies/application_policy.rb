@@ -8,7 +8,7 @@ class ApplicationPolicy
   end
   
   def index?
-    false
+    true if(user)
   end
 
   def show?

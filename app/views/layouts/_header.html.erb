@@ -1,10 +1,10 @@
 <% #This code should probably not be right here
 if current_user.nil?
 	user_button = link_to("Login", { :controller => "sessions", :action => "new" })
-	ul_class = "nav navbar-right navbar-nav"
+	ul_class = "nav navbar-right navbar-nav navbar-custom"
 else
 	user_button = link_to(current_user.name, current_user)
-	ul_class = "nav navbar-collapse collapse navbar-right navbar-nav"
+	ul_class = "nav navbar-collapse collapse navbar-right navbar-nav navbar-custom"
 end %>
 
 <header class="navbar navbar-fixed-top navbar-custom">

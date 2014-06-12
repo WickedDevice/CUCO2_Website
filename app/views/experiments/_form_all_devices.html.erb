@@ -1,28 +1,23 @@
-<div style="float:left; display:inline-block">
-<%= semantic_form_for(@experiment, html: {:onsubmit => "return confirm('Are you sure you want to deactivate all sensors?');" }) do |f| %>
-
-  <div class="field">
-    <%= f.hidden_field :checkout, :value => "none"%>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Deactivate all" %>
-  </div>
-
-<% end %>
-</div>
-<div>
+<div style="float:left; display:inline-block" class="container">
 <%= semantic_form_for(@experiment) do |f| %>
 
   <div class="field">
-    <%= f.hidden_field :checkout, :value => "all"%>
+    <%= f.hidden_field :checkout, :value => "?"%>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Activate all" %>
-  </div>
+  <table><tr>
+    <td class="actions">
+      <%= f.submit "Deactivate all", onclick: "return confirm('Are you sure you want to deactivate all sensors?');" %>
+    </td>
 
+    <td class="actions">
+      <%= f.submit "Activate all" %>
+    </td>
+
+  <td>
+    <%= render "tooltip", tooltip: "Activating sensors tells them to start collecting data." %>
+  </td>
+  </tr></table>
 <% end %>
-  <%= render "tooltip", tooltip: "Activating sensors tells them to start collecting data." %>
 </div>
 <br>

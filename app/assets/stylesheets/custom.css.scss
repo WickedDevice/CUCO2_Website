@@ -1,11 +1,16 @@
 @import "bootstrap";
 
-$color-primary:			#C5E0CB;
-$color-secondary:  		#C9F580;
-$color-secondary-dark:  #739F2A;
+$color-primary:			#78c26b;
+$color-secondary:  		#9cfed4;
+$color-secondary-dark:  #389c47;
 $color-tertiary:   		#6EBFCE;
-$color-tertiary-dark: 	#247686;
-$color-quartenary: 		#FF9186;
+$color-tertiary-dark: 	#f8ffff;
+$color-quartenary: 		#9cfed4;
+
+/* Controls column & table backgrounds*/
+$color-very-pale:		#fcfcfc;
+$color-pale:			#f8f8f8;
+
 
 /* universal */
 
@@ -34,7 +39,7 @@ textarea {
 }
 
 table {
-	background-color: #fcfcfc;
+	background-color: $color-very-pale;
 
 }
 
@@ -61,14 +66,33 @@ td {
 	}
 }
 
+.col-sm-6 {
+	background-color: $color-very-pale;
+	border-style:solid;
+	border-width: 2px;
+	border-color: $color-pale;
+	padding-bottom: 1em;
+}
+
 /* Forms */
 
-form .centered{ 
+form.centered { 
 	margin: 0 auto; 
-	width:150px;
+	width:300px;
 
 	input[type=submit] {
 		float:right;
+	}
+
+	input[type="text"] {
+		width: 100%;
+	}
+	input[type="password"] {
+		width: 100%;
+	}
+	textarea {
+		rows: "5";
+		width: 100%;
 	}
 }
 
@@ -118,6 +142,7 @@ $colHighlight   : $color-quartenary;
 			> a {
 				color: $colDefault;
 				&:hover,  &:focus {
+					background-color: $bgHighlight;
 					color: $colHighlight; }}}
 		> .active {
 			> a, > a:hover, > a:focus {
@@ -154,6 +179,7 @@ $colHighlight   : $color-quartenary;
 
 
 #logo {
+	color: $colDefault;
 	float: left;
 	margin-right: 10px;
 	font-size: 1.7em;
@@ -163,6 +189,7 @@ $colHighlight   : $color-quartenary;
 	line-height: 1;
 	&:hover {
 		text-decoration: none;
+		color: $colHighlight;
 	}
 }
 

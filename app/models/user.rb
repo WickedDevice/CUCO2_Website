@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
 	def user_id
 		id
 	end
+
+	def admin?
+		false
+	end
 end

@@ -132,6 +132,14 @@ class ExperimentsController < ApplicationController
         params[:experiment][:end] = Time.now
       end
 
+
+      #This code also smells...
+      if params[:commit] == "Activate all"
+        params[:experiment][:checkout] = "all"
+      elsif params[:commit] == "Deactivate all"
+        params[:experiment][:checkout] = "none"
+      end
+
       if params[:experiment][:checkout] =="all"
         @experiment.checkout_devices()
       elsif params[:experiment][:checkout]=="none"

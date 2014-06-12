@@ -3,7 +3,7 @@
 <p>
   <table class="table">
 <thead><tr>
-  <th><strong>Sensors</strong></th> <th></th> <th>Sensor Location</th><tr>
+  <th><strong>Sensors</strong></th> <th></th> <th><%= render "tooltip", visible: "Sensor Location", tooltip: "Where the sensor is in the room."%> </th><tr>
 </thead>
 <tbody>
 	<% @experiment.device_experiments.each do |de| %>
