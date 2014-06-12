@@ -1,5 +1,5 @@
-<div style="float:left">
-<%= semantic_form_for(@experiment, html: {:onsubmit => "return confirm('Are you sure you want to deactivate all devices?');" }) do |f| %>
+<div style="float:left; display:inline-block">
+<%= semantic_form_for(@experiment, html: {:onsubmit => "return confirm('Are you sure you want to deactivate all sensors?');" }) do |f| %>
 
   <div class="field">
     <%= f.hidden_field :checkout, :value => "none"%>
@@ -23,5 +23,6 @@
   </div>
 
 <% end %>
+  <%= render "tooltip", tooltip: "Activating sensors tells them to start collecting data." %>
 </div>
-<div style="">
+<br>

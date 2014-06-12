@@ -12,7 +12,7 @@ var check_box_change = function(device_id) {
 }
 </script>
 
-<%= semantic_form_for(@experiment) do |f| %>
+<%= semantic_form_for(@experiment , html: {:class => "centered"}) do |f| %>
   <% if @experiment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@experiment.errors.count, "error") %> prohibited this experiment from being saved:</h2>
@@ -61,7 +61,7 @@ var check_box_change = function(device_id) {
 <div>
   <br>
   <% if @devices %>
-  <table>
+  <table class="table">
     <thead>
       <th><%= f.label :devices %><th></th></th><th>Location in room</th>
     </thead>
@@ -87,7 +87,7 @@ var check_box_change = function(device_id) {
           <% else %>
             <% display_location = checked ? "inline" : "none" %>
             <td style='display:<%= display_location %>', id='<%= 'location_for_device_' + device.id.to_s %>'>
-              <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "Add a location") %>
+              <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "", { placeholder: "Add a location"}) %>
             </td>
           <% end %>
 
@@ -98,7 +98,7 @@ var check_box_change = function(device_id) {
     </tbody>
   </table>
   <% else %>
-  <p>There appear to be no devices available.</p>
+  <p>There appear to be no sensors available.</p>
   <% end %>
 </div>
 

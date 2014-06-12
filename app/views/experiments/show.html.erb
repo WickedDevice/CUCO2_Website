@@ -1,4 +1,4 @@
-
+<h1><%= @experiment.name %></h1>
 <p>
   Download:
   <%= link_to "CSV", :action => :show, :id => @experiment.id, :format =>'csv'%>
@@ -7,26 +7,26 @@
 
 <br>
  <% if @experiment.sensor_data.empty? %>
- <p>This experiment has no data yet.</p>
+ <p>This experiment has no data yet.
+
+ <% if @experiment.active? %>
+ <% elsif @experiment.start.nil? %>
+ Press Start Experiment to begin collecting data.
+ <% end %>
+ </p>
  <% else %>
   <%= render 'chart' %>
  <% end %>
 
 <br>
 
-
 <p>
-  <strong>Name:</strong>
-  <%= @experiment.name %>
-</p>
-
-<p>
-  <strong>Location:</strong>
+	<%= render "tooltip", tooltip: "The building and room where the experiment takes place.", visible: "<strong>Experiment Location:</strong>" %>
   <%= @experiment.location %>
 </p>
 
 <p>
-  <strong>CO2 Cutoff:</strong>
+	  <%= render "tooltip", tooltip: "Sensors stop collecting data when the CO2 levels fall below this amount.", visible: "<strong>CO2 Cutoff: </strong>" %>
   <%= @experiment.co2_cutoff %> ppm
 </p>
 
@@ -38,6 +38,6 @@
 </p>
 
 <%= render 'show_devices' %>
-
-<%= link_to 'Edit', edit_experiment_path(@experiment) %> |
-<%= link_to 'Back', experiments_path %>
+<br>
+<%= link_to 'Back', experiments_path %> | 
+<%= link_to 'Edit', edit_experiment_path(@experiment) %>

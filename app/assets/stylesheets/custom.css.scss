@@ -1,5 +1,12 @@
 @import "bootstrap";
 
+$color-primary:			#C5E0CB;
+$color-secondary:  		#C9F580;
+$color-secondary-dark:  #739F2A;
+$color-tertiary:   		#6EBFCE;
+$color-tertiary-dark: 	#247686;
+$color-quartenary: 		#FF9186;
+
 /* universal */
 
 html {
@@ -26,6 +33,11 @@ textarea {
 	margin-bottom: 10px;
 }
 
+table {
+	background-color: #fcfcfc;
+
+}
+
 th {
 	padding:10px;
 }
@@ -46,6 +58,17 @@ td {
 	}
 
 	&:input {
+	}
+}
+
+/* Forms */
+
+form .centered{ 
+	margin: 0 auto; 
+	width:150px;
+
+	input[type=submit] {
+		float:right;
 	}
 }
 
@@ -77,18 +100,68 @@ p {
 }
 
 /* header */
+$bgDefault      : $color-primary;
+$bgHighlight    : $color-secondary-dark;
+$colDefault     : $color-tertiary-dark;
+$colHighlight   : $color-quartenary;
+.navbar-custom {
+	background-color: $bgDefault;
+	border-color: $bgHighlight;
+	.navbar-brand {
+		color: $colDefault;
+		&:hover, &:focus { 
+			color: $colHighlight; }}
+	.navbar-text {
+		color: $colDefault; }
+	.navbar-nav {
+		> li {
+			> a {
+				color: $colDefault;
+				&:hover,  &:focus {
+					color: $colHighlight; }}}
+		> .active {
+			> a, > a:hover, > a:focus {
+				color: $colHighlight;
+				background-color: $bgHighlight; }}
+		> .open {
+			> a, > a:hover, > a:focus {
+				color: $colHighlight;
+				background-color: $bgHighlight; }}}
+	.navbar-toggle {
+		border-color: $bgHighlight;
+		&:hover, &:focus {
+			background-color: $bgHighlight; }
+		.icon-bar {
+			background-color: $colDefault; }}
+	.navbar-collapse,
+	.navbar-form {
+		border-color: $colDefault; }
+	.navbar-link {
+		color: $colDefault;
+		&:hover {
+			color: $colHighlight; }}}
+@media (max-width: 767px) {
+	.navbar-custom .navbar-nav .open .dropdown-menu {
+		> li > a {
+			color: $colDefault;
+			&:hover, &:focus {
+				color: $colHighlight; }}
+		> .active {
+			> a, > a:hover, > a:focus, {
+				color: $colHighlight;
+				background-color: $bgHighlight; }}}
+}
+
 
 #logo {
 	float: left;
 	margin-right: 10px;
 	font-size: 1.7em;
-	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: -1px;
 	font-weight: bold;
 	line-height: 1;
 	&:hover {
-		color: #fff;
 		text-decoration: none;
 	}
 }

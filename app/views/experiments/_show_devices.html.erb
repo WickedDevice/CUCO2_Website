@@ -1,9 +1,9 @@
 <% if not @experiment.device_experiments.first.nil? %>
 <%# If there is any devices attached to the experiment %>
 <p>
-  <table>
+  <table class="table">
 <thead><tr>
-  <th><strong>Devices</strong></th> <th></th> <th>Location</th><tr>
+  <th><strong>Sensors</strong></th> <th></th> <th>Sensor Location</th><tr>
 </thead>
 <tbody>
 	<% @experiment.device_experiments.each do |de| %>
@@ -19,5 +19,5 @@
 
 </p>
 <% else %>
-<p><br>This experiment doesn't appear to have any devices</p>
+<p><br>This experiment doesn't appear to have any sensors.</p>
 <% end %>

@@ -7,7 +7,7 @@ else
 	ul_class = "nav navbar-collapse collapse navbar-right navbar-nav"
 end %>
 
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top navbar-custom">
 	<div class="navbar-inner">
 		<div class="container">
 			<div class="navbar-header">
@@ -28,7 +28,7 @@ end %>
 			<div>
 				<ul class="<%= ul_class%>" >
 					<% unless current_user.nil? %>
-					<li><%= link_to "Devices", devices_path %></li>
+					<li><%= link_to "Sensors", devices_path %></li>
 					<li><%= link_to "Experiments", experiments_path %></li>
 					<% end %>
 					<li class="divider-vertical"></li>
