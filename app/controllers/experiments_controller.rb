@@ -55,7 +55,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments/new
   def new
     @experiment = Experiment.new(user_id: session[:current_user_id])
-    @devices = policy_scope Device
+    @devices = policy_scope Device.all
     authorize @experiment
   end
 
@@ -79,7 +79,7 @@ class ExperimentsController < ApplicationController
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
       else
-        format.html { render :new }
+        format.html { redirect_to action: :new }
         format.json { render json: @experiment.errors, status: :unprocessable_entity }
       end
     end

@@ -12,7 +12,8 @@
       <th>Location</th>
       <th>Start</th>
       <th>End</th>
-      <th colspan="4"></th>
+      <th>Download</th>
+      <th colspan="3" class="options">Options</th>
     </tr>
   </thead>
 
@@ -21,8 +22,8 @@
       <tr>
         <td><%= link_to experiment.name, experiment %></td>
         <td><%= experiment.location %></td>
-        <td><%= experiment.start %></td>
-        <td><%= experiment.end.nil? ? "Not ended" : experiment.end %></td>
+        <td><%= experiment.start.to_s(:custom) %></td>
+        <td><%= experiment.end.nil? ? "Not ended" : experiment.end.to_s(:custom) %></td>
         <td><%= link_to "CSV", :action => :show, :id => experiment.id, :format =>'csv'%></td>
         <td><%= link_to 'Show', experiment, data: { no_turbolink: true } %></td>
         <td><%= link_to 'Edit', edit_experiment_path(experiment) %></td>

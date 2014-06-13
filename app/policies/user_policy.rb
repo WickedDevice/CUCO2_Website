@@ -1,4 +1,4 @@
-class UserPolicy < Struct.new(:user, :record) < ApplicationPolicy
+class UserPolicy < ApplicationPolicy
 
   def index?
     user.admin?

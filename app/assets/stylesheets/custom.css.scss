@@ -1,11 +1,9 @@
 @import "bootstrap";
 
-$color-primary:			#78c26b;
-$color-secondary:  		#9cfed4;
-$color-secondary-dark:  #389c47;
-$color-tertiary:   		#6EBFCE;
-$color-tertiary-dark: 	#f8ffff;
-$color-quartenary: 		#9cfed4;
+$color-primary:			#78c26b; /* mid-green  -- primary navbar color*/
+$color-secondary:  		#389c47; /* 'dark' green -- navbar selected */
+$color-tertiary:   		#f8ffff; /* Very light color -- light text */
+$color-quartenary: 		#9cfed4; /* Cyan		-- navbar selected text */
 
 /* Controls column & table backgrounds*/
 $color-very-pale:		#fcfcfc;
@@ -47,12 +45,13 @@ th {
 	padding:10px;
 }
 
-td {
-	padding: 5px;
+th.options {
+	text-align:center;
+	padding-right:5em;
 }
 
-#error_explanation {
-	border-radius:50px;
+td {
+	padding: 5px;
 }
 
 .field_with_errors {
@@ -125,8 +124,8 @@ p {
 
 /* header */
 $bgDefault      : $color-primary;
-$bgHighlight    : $color-secondary-dark;
-$colDefault     : $color-tertiary-dark;
+$bgHighlight    : $color-secondary;
+$colDefault     : $color-tertiary;
 $colHighlight   : $color-quartenary;
 .navbar-custom {
 	background-color: $bgDefault;

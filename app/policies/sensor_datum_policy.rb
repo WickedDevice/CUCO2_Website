@@ -5,15 +5,39 @@ class SensorDatumPolicy < ApplicationPolicy
     @record = record
   end
 
-  def create?
-  	true
+
+  def index?
+    true if(user.admin?)
   end
 
+  def create?
+    true
+  end
+
+  def new?
+    user.admin?
+  end
+
+  def update?
+    !record.user_id.nil? and record.user_id == user.id
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    !record.user_id.nil? and record.user_id == user.id
+  end
+  
   class Scope < Struct.new(:user, :scope)
     def resolve
       return SensorDatum.none if user.nil?
+
+      return scope if user.admin?
+
       # May not be the fastest
-      SensorDatum.where(device_id: Device.where(user_id: user.id))
+      scope.where(device_id: Device.where(user_id: user.id))
     end
   end
 end

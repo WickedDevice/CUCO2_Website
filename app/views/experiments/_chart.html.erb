@@ -5,7 +5,7 @@
 <script>
 var graph_data = [
   <% @chart_data.each do |time, values| %>
-    { time: '<%== j time.to_formatted_s(:db) %>',
+    { time: '<%== j time.in_time_zone.to_formatted_s(:db) %>',
       <% values.each do |device_id, ppm| %>
         id_num_<%= device_id.to_s %>: <%= ppm %>,
       <% end %>

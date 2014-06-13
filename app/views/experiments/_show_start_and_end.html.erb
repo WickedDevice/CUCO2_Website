@@ -4,7 +4,7 @@
 <% elsif @experiment.end.nil? %>
   <p>
     <strong>Start:</strong>
-    <%= @experiment.start %>
+    <%= @experiment.start.in_time_zone.to_s(:custom) %>
   </p>
   <p>
   	<div>
@@ -14,11 +14,11 @@
 <% else %>
   <p>
     <strong>Start:</strong>
-    <%= @experiment.start %>
+    <%= @experiment.start.in_time_zone.to_s(:custom) %>
   </p>
   <p>
     <strong>End:</strong>
-  	<%= @experiment.end %>
+  	<%= @experiment.end.in_time_zone.to_s(:custom) %>
   </p>
   <p>
     <div>
