@@ -3,6 +3,7 @@ class SensorDataController < ApplicationController
   before_action :set_sensor_datum, only: [:show, :edit, :update, :destroy]
 
   skip_after_action :verify_authorized, only: :batch_create
+  skip_before_action :logged_out_redirect, only: :batch_create
 
   # GET /sensor_data
   # GET /sensor_data.json

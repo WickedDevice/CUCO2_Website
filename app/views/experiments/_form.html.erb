@@ -30,11 +30,11 @@ var check_box_change = function(device_id) {
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :location, "Experiment location" %><br>
+    <%= render "tooltip", tooltip: "The building and room where the experiment takes place.", visible: f.label(:location, "Experiment location") %><br>
     <%= f.text_field :location %>
   </div>
   <div class="field">
-    <%= f.label :co2_cutoff %><br>
+    <%= render "tooltip", tooltip: "Sensors stop collecting data when the CO2 levels fall below this amount.", visible: f.label( :co2_cutoff, "CO2 Cutoff:") %><br>
     <%= f.text_field :co2_cutoff,
     value: (@experiment.co2_cutoff.nil? ? 2000 : @experiment.co2_cutoff) %>
   </div>
@@ -63,7 +63,7 @@ var check_box_change = function(device_id) {
   <% if @devices %>
   <table class="table">
     <thead>
-      <th><%= f.label :devices %><th></th></th><th>Location in room</th>
+      <th><%= f.label :devices, "Sensors" %><th></th></th><th><%= render "tooltip", visible: "Sensor Location", tooltip: "Where the sensor is in the room."%></th>
     </thead>
     <tbody>
       <% @devices.each do |device| %>
