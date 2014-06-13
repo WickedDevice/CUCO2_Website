@@ -5,7 +5,7 @@
 			
 		</thead>
 		<tbody>
-		<% @experiments.last(10).each do |experiment| %>
+		<% @experiments.last(10).reverse.each do |experiment| %>
 			<tr>
 				<td> <%= link_to experiment.name, experiment %> </td>
 				<td>

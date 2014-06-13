@@ -1,6 +1,6 @@
 
 
-<div id="experiment_chart" style="height: 250px; margin: 30px;"></div>
+<div id="experiment_chart" style="height: <%= 250  + @experiment.device_experiments.count * 18 %>px; margin: 30px;"></div>
 
 <script>
 var graph_data = [
