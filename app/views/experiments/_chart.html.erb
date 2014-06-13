@@ -5,7 +5,7 @@
 <script>
 var graph_data = [
   <% @chart_data.each do |time, values| %>
-    { time: '<%== j time.in_time_zone.to_formatted_s(:db) %>',
+    { time: <%= time.to_i * 1000 %>,
       <% values.each do |device_id, ppm| %>
         id_num_<%= device_id.to_s %>: <%= ppm %>,
       <% end %>
@@ -13,7 +13,17 @@ var graph_data = [
   <% end %>
   ];
 
+var xLabelFormat = function (x) {
+  return new Date(x).toLocaleTimeString();
+};
+var dateFormat = function (x) {
+  return new Date(x).toLocaleString();
+};
+var yLabelFormat = function (y) { return y.toString() + ' ppm'; };
+
+
 var graph = new Morris.Line({
+
   // ID of the element in which to draw the chart.
   element: 'experiment_chart',
   // Chart data records -- each entry in this array corresponds to a point on
@@ -21,26 +31,35 @@ var graph = new Morris.Line({
   data: graph_data,
   // The name of the data record attribute that contains x-values.
   xkey: 'time',
-  //xLabels: "second",
+  xLabels: "second",
+  //xLabelAngle: 60,
+  xLabelFormat: xLabelFormat,
+  dateFormat: dateFormat,
   //parse_time: false,
   // A list of names of data record attributes that contain y-values.
   ykeys: <%== @chart_ykeys %>,
 
+  labels: <%== @chart_labels.keys.to_json %>,
+
   goals: [10000, <%= @experiment.co2_cutoff%>],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: <%== @chart_labels.keys.to_json %>,
+
+  yLabelFormat: yLabelFormat,
 
   ymin: 0,
   pointStrokeColors: ['#bbbbff'],
   pointSize: 3,
   hideHover: 'auto',
+  continuousLine: true,
+  smooth: false,
+  
 
 });
 
 function update() {
   graph.setData(graph_data);
 }
-setInterval(update, 10000);
+//setInterval(update, 10000);
 
 </script>

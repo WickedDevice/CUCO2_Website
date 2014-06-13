@@ -79,7 +79,7 @@ class ExperimentsController < ApplicationController
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
       else
-        format.html { redirect_to action: :new }
+        format.html { @devices = policy_scope(Device.all); render :new }
         format.json { render json: @experiment.errors, status: :unprocessable_entity }
       end
     end

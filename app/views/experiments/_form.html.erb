@@ -5,9 +5,9 @@ var check_box_change = function(device_id) {
   var location = document.querySelector("#location_for_device_" + device_id);
 
   if(check_box.checked && location != null) {
-     location.style['display'] = 'block';
+     location.style['visibility'] = 'visible';
   } else {
-    location.style['display'] = 'none';
+    location.style['visibility'] = 'hidden';
   }
 }
 </script>
@@ -42,14 +42,14 @@ var check_box_change = function(device_id) {
 <% if not @experiment.start.nil? %>
   <div class="field">
     <%= f.label :start %><br>
-    <%= f.datetime_select :start %>
+    <%= f.datetime_select :start, ampm: true%>
   </div>
 <% end %>
 
 <% if not @experiment.end.nil? %>
   <div class="field">
     <%= f.label :end %><br>
-    <%= f.datetime_select :end %>
+    <%= f.datetime_select :end, ampm: true %>
   </div>
 <% end %>
 
@@ -85,8 +85,8 @@ var check_box_change = function(device_id) {
             <% end %>
             </td>
           <% else %>
-            <% display_location = checked ? "inline" : "none" %>
-            <td style='display:<%= display_location %>', id='<%= 'location_for_device_' + device.id.to_s %>'>
+            <% display_location = checked ? "visible" : "hidden" %>
+            <td style='visibility:<%= display_location %>', id='<%= 'location_for_device_' + device.id.to_s %>'>
               <%= text_field_tag("experiment[device_experiments_locs][new][#{device.id}]", "", { placeholder: "Add a location"}) %>
             </td>
           <% end %>

@@ -19,7 +19,7 @@
 							"Finished"
 						end %>
 					</td>
-				<td><%= link_to "Download CSV", :action => :show, :id => experiment.id, :format =>'csv'%></td>
+				<td><%= link_to "Download CSV", experiment_path(experiment, :format =>'csv')%></td>
 			</tr>
 		<% end %>
 

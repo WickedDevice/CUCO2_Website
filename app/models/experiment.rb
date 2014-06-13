@@ -78,7 +78,8 @@ class Experiment < ActiveRecord::Base
 	def to_csv
 		CSV.generate do |csv|
 			csv << ["Experiment:",self.name, "Location:", self.location]
-			csv << ["Start:", self.start.to_s, "End:", self.end.to_s]
+			csv << ["Start:", self.start.nil? ? "Not started" : self.start.in_time_zone.to_s(:custom_csv),
+					"End:",   self.end.nil?   ? "Not ended" : self.end.in_time_zone.to_s(:custom_csv)]
 			csv << [""]
 			csv << ["Parts per million of CO2"]
 
@@ -101,7 +102,7 @@ class Experiment < ActiveRecord::Base
 			csv << column_names
 
 			rows.each do |time, value|
-				row_data = [time]
+				row_data = [time.in_time_zone.to_s(:custom_csv)]
 				des.each do |de|
 					row_data << value[de.id] || ""
 				end
