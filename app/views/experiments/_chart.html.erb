@@ -1,6 +1,4 @@
-
-
-<div id="experiment_chart" style="height: <%= 250  + @experiment.device_experiments.count * 18 %>px; margin: 30px;"></div>
+<div id="experiment_chart" style="margin: 30px;"></div>
 
 <script>
 var graph_data = [
@@ -50,7 +48,7 @@ var graph = new Morris.Line({
   ymin: 0,
   pointStrokeColors: ['#bbbbff'],
   pointSize: 3,
-  hideHover: 'auto',
+  hideHover: false,
   continuousLine: true,
   smooth: false,
   
