@@ -31,12 +31,13 @@ class DevicesController < ApplicationController
     @device = Device.new(device_params)
     authorize @device
 
-    Device.find_by( address: @device.address)
-    if match && match.user.admin?
+    match = Device.find_by( address: @device.address)
+    if match && User.find(match.user_id).admin?
       #Take the device from the admin and give it to the user.
       @device = match
       success = match.update(device_params)
-    elsif @device.user.admin
+
+    elsif User.find(@device.user_id).admin
       success = @device.save
     else
       flash.now[:error] = "Incorrect MAC address."
