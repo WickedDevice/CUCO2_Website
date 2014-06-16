@@ -42,5 +42,4 @@ class Device < ActiveRecord::Base
 		super_update(params)
 	end
 
-
 end

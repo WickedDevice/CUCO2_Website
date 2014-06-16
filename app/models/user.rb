@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
 	end
 
 	def admin?
-		false
+		admin || false
 	end
 end

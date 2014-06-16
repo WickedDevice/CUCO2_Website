@@ -60,6 +60,9 @@ class SensorDataController < ApplicationController
   end
 
   def batch_create
+
+    #Do decryption here!
+
     @success = SensorDatum.batch_create(params[:sensor_datum])
 
     if(params[:sensor_datum][:experiment_ended] == "true")

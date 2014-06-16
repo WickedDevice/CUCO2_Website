@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611192909) do
+ActiveRecord::Schema.define(version: 20140616190831) do
 
   create_table "device_experiments", force: true do |t|
     t.integer  "device_id"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140611192909) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "password_digest"
+    t.boolean  "admin"
   end
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true

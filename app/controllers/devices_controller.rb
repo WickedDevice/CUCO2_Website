@@ -30,8 +30,21 @@ class DevicesController < ApplicationController
   def create
     @device = Device.new(device_params)
     authorize @device
+
+    Device.find_by( address: @device.address)
+    if match && match.user.admin?
+      #Take the device from the admin and give it to the user.
+      @device = match
+      success = match.update(device_params)
+    elsif @device.user.admin
+      success = @device.save
+    else
+      flash.now[:error] = "Incorrect MAC address."
+      success = false
+    end
+
     respond_to do |format|
-      if @device.save
+      if success
         format.html { redirect_to @device, notice: 'Device was successfully created.' }
         format.json { render :show, status: :created, location: @device }
       else
