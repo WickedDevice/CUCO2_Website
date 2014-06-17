@@ -21,12 +21,12 @@
 <br>
 
 <p>
-	<%= render "tooltip", tooltip: "The building and room where the experiment takes place.", visible: "<strong>Experiment Location:</strong>" %>
+	<%= render "application/tooltip", tooltip: "The building and room where the experiment takes place.", visible: "<strong>Experiment Location:</strong>" %>
   <%= @experiment.location %>
 </p>
 
 <p>
-	  <%= render "tooltip", tooltip: "Sensors stop collecting data when the CO2 levels fall below this amount.", visible: "<strong>CO2 Cutoff: </strong>" %>
+	  <%= render "application/tooltip", tooltip: "Sensors stop collecting data when the CO2 levels fall below this amount.", visible: "<strong>CO2 Cutoff: </strong>" %>
   <%= @experiment.co2_cutoff %> ppm
 </p>
 

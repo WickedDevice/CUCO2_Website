@@ -11,6 +11,5 @@ require 'spec_helper'
 #   end
 # end
 describe ExperimentsHelper do
-  pending "Tests are very basic and incomplete."
   #pending "add some examples to (or delete) #{__FILE__}"
 end

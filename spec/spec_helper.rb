@@ -82,5 +82,6 @@ def create_test_session()
   if($VERBOSE)
     quash_warnings
   end
+  User.first.admin = true
   return {current_user_id: 1}
 end

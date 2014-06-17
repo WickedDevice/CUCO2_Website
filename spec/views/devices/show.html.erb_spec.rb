@@ -6,6 +6,8 @@ RSpec.describe "devices/show", :type => :view do
   end
 
   it "renders attributes in <p>" do
+  	view.stub(:policy_scope) {|arg| arg} #Rspec doesn't include Pundit properly...
+
     render
   end
 end

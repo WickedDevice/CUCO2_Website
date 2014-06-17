@@ -14,9 +14,6 @@ gem 'bootstrap-sass'
 # Use pundit for authentication
 gem 'pundit'
 
-# Login using google #Not implemented
-gem "omniauth-google-oauth2", "~> 0.2.1"
-
 # Adding formtastic for some forms
 # => Using a bootstrap version
 gem "formtastic-bootstrap"

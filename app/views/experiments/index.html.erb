@@ -22,7 +22,7 @@
       <tr>
         <td><%= link_to experiment.name, experiment %></td>
         <td><%= experiment.location %></td>
-        <td><%= experiment.start.to_s(:custom) %></td>
+        <td><%= experiment.start.to_s(:custom) unless experiment.start.nil? %></td>
         <td><%= experiment.end.nil? ? "Not ended" : experiment.end.to_s(:custom) %></td>
         <td><%= link_to "CSV", :action => :show, :id => experiment.id, :format =>'csv'%></td>
         <td><%= link_to 'Show', experiment, data: { no_turbolink: true } %></td>
