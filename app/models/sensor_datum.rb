@@ -38,19 +38,19 @@ class SensorDatum < ActiveRecord::Base
 	end
 
 	def self.batch_create(params)
-		if params.nil? || params[:ppm].nil?
+		if params.nil? || params["ppm"].nil?
 			return false
 		end
 
 		success = true
 
-		device = Device.find_by address: params[:device_address]
+		device = Device.find_by address: params["device_address"]
 		
-		device.checkin params[:experiment_id]
+		device.checkin params["experiment_id"]
 		
-		params[:ppm].each do |time, ppm|
+		params["ppm"].each do |time, ppm|
 			sensor_datum = SensorDatum.new()
-			sensor_datum.experiment_id = params[:experiment_id]
+			sensor_datum.experiment_id = params["experiment_id"]
 			sensor_datum.device = device
 
 			sensor_datum.ppm = ppm

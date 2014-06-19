@@ -63,10 +63,12 @@ class SensorDataController < ApplicationController
 
     #Do decryption here!
 
-    @success = SensorDatum.batch_create(params[:sensor_datum])
+    new_params = JSON.parse(p ApplicationHelper::Vignere.decode(params["sensor_datum"]["encrypted"], "post_modern_octopus"))
 
-    if(params[:sensor_datum][:experiment_ended] == "true")
-      Device.find_by(address: params[:sensor_datum][:device_address]).checkin(params[:sensor_datum][:experiment_id].to_i)
+    @success = SensorDatum.batch_create(new_params)
+
+    if(new_params["experiment_ended"] == "true")
+      Device.find_by(address: new_params["sensor_datum"]["device_address"]).checkin(new_params["sensor_datum"]["experiment_id"].to_i)
     end
 
     render :batch_create, layout: false

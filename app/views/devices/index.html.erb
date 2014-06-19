@@ -18,7 +18,7 @@
         <td><%= device.name %></td>
         <td><%= device.address %></td>
         <td><%= device.notes %></td>
-        <td><%= link_to(device.experiment.name, device.experiment) if device.in_experiment? && authorize(device.experiment) %></td>
+        <td><%= link_to(device.experiment.name, device.experiment) if device.in_experiment? && ExperimentPolicy.new(current_user, device.experiment).show? %></td>
         <td><%= link_to 'Show', device %></td>
         <td><%= link_to 'Edit', edit_device_path(device) %></td>
         <td><%= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' } %></td>
