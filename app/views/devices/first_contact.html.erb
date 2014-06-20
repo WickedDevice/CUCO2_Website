@@ -1,18 +1,3 @@
 start
-<%= Time.now.to_i %>
-
-<% if @device.nil? %>
-<p>Device not found</p>
-<% else %>
-<% if @device.in_experiment? %>
-In_experiment:
-<%= @device.experiment_id %>
-
-CO2_cutoff:
-<%= @device.experiment.co2_cutoff %>
-<% else %>
-Device is not in an experiment.
-<% end %>
-
-<% end %>
+<%== ApplicationHelper::Vignere.encrypt( first_contact_string(@device), "post_modern_octopus") %>
 end

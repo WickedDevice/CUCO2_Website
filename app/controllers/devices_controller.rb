@@ -87,7 +87,9 @@ class DevicesController < ApplicationController
 
   def first_contact
     @device = Device.find_by address: params[:address]
+
     #Don't authorize
+
     respond_to do |format|
       format.html {render(layout: false)}
     end

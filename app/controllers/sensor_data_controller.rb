@@ -5,6 +5,8 @@ class SensorDataController < ApplicationController
   skip_after_action :verify_authorized, only: :batch_create
   skip_before_action :logged_out_redirect, only: :batch_create
 
+  wrap_parameters false
+
   # GET /sensor_data
   # GET /sensor_data.json
   def index
@@ -63,12 +65,12 @@ class SensorDataController < ApplicationController
 
     #Do decryption here!
 
-    new_params = JSON.parse(p ApplicationHelper::Vignere.decode(params["sensor_datum"]["encrypted"], "post_modern_octopus"))
+    new_params = JSON.parse(p ApplicationHelper::Vignere.decrypt(params["encrypted"], "post_modern_octopus"))
 
-    @success = SensorDatum.batch_create(new_params)
+    @success = SensorDatum.batch_create(new_params["sensor_datum"])
 
     if(new_params["experiment_ended"] == "true")
-      Device.find_by(address: new_params["sensor_datum"]["device_address"]).checkin(new_params["sensor_datum"]["experiment_id"].to_i)
+      Device.find_by(address: params["device_address"]).checkin(new_params["sensor_datum"]["experiment_id"].to_i)
     end
 
     render :batch_create, layout: false

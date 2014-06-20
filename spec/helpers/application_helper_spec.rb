@@ -17,34 +17,53 @@ describe ApplicationHelper do
 
 	describe "Vignere cipher" do
 		subject(:cipher) { ApplicationHelper::Vignere }
-		let(:plaintext) { " \"()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{}" }
+		let(:plaintext) { " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" }
 		let(:key) { "post_modern_octopus" }
-		let(:example_encrypted) { "olsuapsikyvhyn)|~-,**/1t,/|~52{5*<8:@?==BD0?B8:HE7H=OKMSRPPUWCRUKM[XJ[Pb^`fecchjVeh^`nl" }
+		let(:example_encrypted) { "ppuwcrukm{xj{p#~!'&$$)+v&)~!/,}/$624:977<>*9<24B?1B7IEGMLJJOQ=LOEGURDUJ\\XZ`_]]bdP_bXZheWh]okmsr" }
 
 		it "encrypts and decrypts strings" do
-			encrypted = cipher.encode "hello world\"", key
+			encrypted = cipher.encrypt "hello world\"", key
 			
-			expect(cipher.decode(encrypted, key)).to eq("hello world\"")
+			expect(cipher.decrypt(encrypted, key)).to eq("hello world\"")
 		end
 
-		it "works on the complete alphabet" do
-			key = 'q'
-			# pipe, tilde, !"#$%&', and non-printable characters aren't allowed.
-			encrypted = cipher.encode plaintext, key
-
-			expect(cipher.decode(encrypted, key)).to eq(plaintext)
+		it "works on the complete alphabet with a single letter key" do	
+			key = "";
+			len = plaintext.length;
+			encrypted = "";
+			output = "";
+			success = true;
+			#Use ever character as the key
+			for c in ' '..'~'
+				key[0] = c;
+				encrypted = cipher.encrypt(plaintext,key);
+				output = cipher.decrypt(encrypted,key);
+			
+				#print(key + ": ")
+				#printf("%s\n%s\n", input, output);
+				#printf("%s\n", encrypted);
+				
+				#Check for successful decryption
+				for i in 0..len-1
+					if(plaintext[i] != output[i]) 
+						success = false;
+						printf("Key:%c %d:%d ", key[0], input[i].ord, output[i].ord);
+					end
+				end
+			end
+			expect(success).to eq(true)
 		end
 
 		it "decodes an old string made with the firmware properly" do
 
-			decrypted = cipher.decode example_encrypted, key
+			decrypted = cipher.decrypt example_encrypted, key
 
 			expect(decrypted).to eq(plaintext)
 		end
 
 		it "encodes an old string made with the firmware properly" do
 
-			expect(cipher.encode(plaintext, key)).to eq(example_encrypted)
+			expect(cipher.encrypt(plaintext, key)).to eq(example_encrypted)
 
 		end
 	end
