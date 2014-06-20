@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616190831) do
+ActiveRecord::Schema.define(version: 20140620192322) do
 
   create_table "device_experiments", force: true do |t|
     t.integer  "device_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140616190831) do
     t.datetime "updated_at"
     t.integer  "experiment_id"
     t.integer  "user_id"
+    t.string   "encryption_key"
   end
 
   add_index "devices", ["address"], name: "index_devices_on_address", unique: true

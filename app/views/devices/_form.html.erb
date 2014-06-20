@@ -19,6 +19,14 @@
     <%= f.label :address, "MAC address" %><br>
     <%= f.text_field :address %>
   </div>
+
+  <% if current_user.admin? %>
+  <div class="field">
+    <%= f.label :encryption_key %>
+    <%= f.text_field :encryption_key %>
+  </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :notes %><br>
     <%= f.text_field :notes %>

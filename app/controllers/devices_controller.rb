@@ -17,7 +17,7 @@ class DevicesController < ApplicationController
 
   # GET /devices/new
   def new
-    @device = Device.new
+    @device = Device.new()
     authorize @device
   end
 
@@ -104,6 +104,6 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:name, :address, :notes, :experiment_id).merge(user_id: current_user.id)
+      params.require(:device).permit(:name, :address, :notes, :experiment_id, :encryption_key).merge(user_id: current_user.id)
     end
 end
