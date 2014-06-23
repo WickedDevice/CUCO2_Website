@@ -22,4 +22,12 @@ test:
 
 production:
   <<: *default
-  database: /home/deployer/apps/CUCO2_Website/shared/production.sqlite3
+  <%# database: /home/deployer/apps/CUCO2_Website/shared/production.sqlite3 # for old server %>
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: rails
+  pool: 5
+  username: rails
+  password: <%= ENV['RAILS_DB_PASSWORD'] %>
+  host: localhost
