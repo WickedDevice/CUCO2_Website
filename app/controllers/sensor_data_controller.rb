@@ -65,15 +65,23 @@ class SensorDataController < ApplicationController
 
     device = Device.find_by(address: params["device_address"])
 
-    new_params = JSON.parse(p ApplicationHelper::Vignere.decrypt(params["encrypted"], device.encryption_key))
+    @success = true
+    begin
+      new_params = JSON.parse(p ApplicationHelper::Vignere.decrypt(params["encrypted"], device.encryption_key))
+    rescue => e
+      @success = false
+      puts "Error decoding JSON:\t#{e}"
+      render :batch_create, layout: false, formats: :html
+      return
+    end
 
-    @success = SensorDatum.batch_create(new_params["sensor_datum"])
+    @success &= SensorDatum.batch_create(new_params["sensor_datum"])
 
     if(new_params["experiment_ended"] == "true")
       device.checkin(new_params["sensor_datum"]["experiment_id"].to_i)
     end
 
-    render :batch_create, layout: false
+    render :batch_create, layout: false, formats: :html
   end
 
   # PATCH/PUT /sensor_data/1

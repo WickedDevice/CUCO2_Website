@@ -3,8 +3,8 @@ module ApplicationHelper
 	#A Vignere cipher using all printable ascii characters (' '..'~')
 	class Vignere
 		def self.encrypt(plaintext,  key)
-			encrypted = "" 
-			textLength = plaintext.length;
+			encrypted = ""
+			textLength = plaintext.nil? ? 0 : plaintext.length;
 			keyLength =  key.length;
 			for i in 0..textLength-1
 				encrypted[i] = (plaintext[i].ord + key[i % keyLength].ord - 32).chr;
@@ -17,7 +17,7 @@ module ApplicationHelper
 
 		def self.decrypt(encrypted,  key) 
 			plaintext = "";
-			textLength = encrypted.length;	
+			textLength = encrypted.nil? ? 0 : encrypted.length;	
 			keyLength =  key.length;
 			for i in 0..textLength-1
 				ascii = encrypted[i].ord - (key[i % keyLength].ord - 32);

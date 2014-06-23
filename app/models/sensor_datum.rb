@@ -46,11 +46,19 @@ class SensorDatum < ActiveRecord::Base
 
 		device = Device.find_by address: params["device_address"]
 		
-		device.checkin params["experiment_id"]
+		#Offline sensor mode
+		# => Still expects the user to have set up the experiment ahead of time.
+		if params["experiment_id"] == -1 and device.in_experiment?
+			experiment_id = device.experiment_id
+		else
+			experiment_id = params["experiment_id"]
+		end
+
+		device.checkin experiment_id
 		
 		params["ppm"].each do |time, ppm|
 			sensor_datum = SensorDatum.new()
-			sensor_datum.experiment_id = params["experiment_id"]
+			sensor_datum.experiment_id = experiment_id
 			sensor_datum.device = device
 
 			sensor_datum.ppm = ppm
