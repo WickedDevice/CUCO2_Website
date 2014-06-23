@@ -221,6 +221,10 @@ $colHighlight   : $color-quartenary;
 	padding: 6px 40px;
 }
 
+#title-large {
+	margin: 6px 6px 6px 50px;
+}
+
 @media (max-width: 767px) {
 	#title-large {
 		display:none;

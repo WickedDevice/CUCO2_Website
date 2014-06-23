@@ -1,4 +1,9 @@
-<h1><%= @device.name %></h1>
+<% provide :title, "Sensor View" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @device.name %>
+</p>
 
 <% if @device.in_experiment? %>
   <p></p>

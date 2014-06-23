@@ -53,6 +53,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = policy_scope(User.all)
+  end
+
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -66,9 +70,9 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @experiments = policy_scope Experiment.all
-      @devices = policy_scope Device.all
       @user = User.find(params[:id])
+      @experiments = policy_scope Experiment.where(user_id: @user.id)
+      @devices = policy_scope Device.where(user_id: @user.id)
       authorize @user
     end
 

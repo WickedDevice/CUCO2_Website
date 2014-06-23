@@ -1,5 +1,5 @@
+<% provide :title, "Sensors" %>
 
-<h1>Sensors</h1>
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
 <table class="table">
   <thead>
@@ -15,7 +15,7 @@
   <tbody>
     <% @devices.each do |device| %>
       <tr>
-        <td><%= device.name %></td>
+        <td><%= link_to device.name, device %></td>
         <td><%= device.address %></td>
         <td><%= device.notes %></td>
         <td><%= link_to(device.experiment.name, device.experiment) if device.in_experiment? && ExperimentPolicy.new(current_user, device.experiment).show? %></td>

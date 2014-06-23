@@ -9,7 +9,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    (user.id == record.id)
+    (user.id == record.id) || user.admin?
   end
 
   def create?

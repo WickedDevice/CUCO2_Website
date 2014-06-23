@@ -1,0 +1,31 @@
+<% provide :title, "Users" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Experiments</th>
+      <th>Devices</th>
+      <th>Admin?</th>
+      <th colspan="3" class="options">Options</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user %> <%= " (you)" if current_user == user %></td>
+        <td><%= user.experiments.count %></td>
+        <td><%= user.devices.count %></td>
+        <td><%= user.admin? ? "Admin" : "Normal user"%></td>
+        <td><%= link_to 'Show', user, data: { no_turbolink: true } %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>
