@@ -1,0 +1,29 @@
+<h1>Edit user</h1>
+
+
+
+<%= form_for(@user, html: { :class => "centered" }) do |f| %>
+<%= render "error_messages" %>
+
+<% if current_user.admin? %>
+<div class="field">
+	<%= f.label :name, "Username" %><br>
+	<%= f.text_field :name %>
+</div>
+<% else %>
+<h3> <%=@user.name %> </h3>
+<% end %>
+
+<div class="field">
+	<%= f.label :password %><br>
+	<%= f.password_field :password %>
+</div>
+
+<div class="field">
+	<%= f.label :password_confirmation, "Confirm Password" %><br>
+	<%= f.password_field :password_confirmation %>
+</div>
+<div class="actions">
+	<%= f.submit "Change password" %>
+</div>
+<% end %>
