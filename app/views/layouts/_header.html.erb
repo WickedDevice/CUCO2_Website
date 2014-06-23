@@ -16,6 +16,11 @@ end %>
 					<%= link_to image_tag("wicked_device_logo.jpg", height: "25"), "http://wickeddevice.com", style: "float:left" %>
 					<%= link_to "Home", root_path, id: "logo", style: "padding-left:10px" %>
 				</div>
+
+				<div id="title-small" class="nav navbar-nav nav-center title">
+					<%= yield :title %>
+				</div>
+
 				<% unless current_user.nil? %>
 				<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
 					<span class="sr-only">Toggle navigation</span>
@@ -25,7 +30,11 @@ end %>
 				</button>
 				<% end %>
 			</div>
+
 			<div>
+				<div id="title-large" class="nav navbar-nav nav-center title">
+					<%= yield :title %>
+				</div>
 				<ul class="<%= ul_class%>" >
 					<% unless current_user.nil? %>
 					<li><%= link_to "Sensors", devices_path %></li>

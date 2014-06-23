@@ -21,11 +21,9 @@ class ExperimentsController < ApplicationController
     @chart_ykeys = '['
     @chart_labels = {}
 
-    #Loads the last 1000 data points into the graph.
-    # This code smells and probably should change.
-    range = [-1000, -1*@experiment.sensor_data.length].max() .. -1
 
-    @experiment.sensor_data[range].each do |datum|
+    #is this a good limit?
+    @experiment.sensor_data.order("created_at DESC").limit(200).each do |datum|
 
       if @chart_data[datum.created_at].nil?
         @chart_data[datum.created_at] = { datum.device.id => datum.ppm }
