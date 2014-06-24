@@ -1,0 +1,23 @@
+<% @devices = @experiment.devices.sort_by {|device| device.id} %>
+<%=
+
+CSV.generate do |csv|
+	csv << ["Time"] + (@devices.map {|x| x.name})
+
+	chart_data(@experiment).each do |time, values|
+		row = [time.to_formatted_s(:db)]
+		
+		values.sort_by {|x| x.device_id}
+		@devices.each do |device|
+			if values[0].device_id == device.id
+				row << values.shift.ppm
+			else
+				row << nil
+			end
+		end
+
+		csv << row
+	end
+end
+
+%>

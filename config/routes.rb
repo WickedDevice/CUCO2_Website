@@ -20,7 +20,9 @@ Rails.application.routes.draw do
 
   post 'sensor_data/batch_create/:device_address', to: 'sensor_data#batch_create'
   get 'sensor_data/batch_create/:device_address', to: 'sensor_data#batch_create'
-    
+
+  get 'experiments/:id/chart', to: 'experiments#chart'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

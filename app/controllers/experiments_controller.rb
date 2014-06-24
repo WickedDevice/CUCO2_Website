@@ -17,29 +17,6 @@ class ExperimentsController < ApplicationController
   # GET /experiments/1
   # GET /experiments/1.json
   def show
-    @chart_data = {}
-    @chart_ykeys = '['
-    @chart_labels = {}
-
-
-    #is this a good limit?
-    @experiment.sensor_data.order("created_at DESC").limit(200).each do |datum|
-
-      if @chart_data[datum.created_at].nil?
-        @chart_data[datum.created_at] = { datum.device.id => datum.ppm }
-      else
-        @chart_data[datum.created_at][datum.device.id] = datum.ppm
-      end
-
-      unless @chart_labels.has_key? datum.device.name
-        @chart_ykeys << "'id_num_" + datum.device.id.to_s + "', "
-        @chart_labels[datum.device.name] = true
-      end
-
-    end
-    @chart_ykeys = @chart_ykeys[0..-3] unless @chart_ykeys.length < 4
-    @chart_ykeys << ']'
-
     respond_to do |format|
       format.html
       format.csv {
@@ -112,6 +89,12 @@ class ExperimentsController < ApplicationController
     end
   end
 
+    def chart
+      @experiment = Experiment.find(params[:id])
+      authorize @experiment, :show?
+      render :chart, formats: :csv
+    end
+
   private
 
     def edit_helper
@@ -176,4 +159,5 @@ class ExperimentsController < ApplicationController
         :co2_cutoff).merge(user_id: current_user.id)
         #{:device_ids => []}, # If this is included, ActiveRecord deletes the devices that don't have data submitted for them on update.
     end
+
 end

@@ -2,6 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.morris-hover {
-	padding: 1em;
+#experiment_chart {
+	.dygraph-label {
+		margin:5px;
+	}
+
+	.dygraph-title {
+		margin:5px;
+	}
+
+	.dygraph-ylabel {
+		margin:5px;
+	}
+
+	.chart {
+		margin:5px;
+	}
 }
