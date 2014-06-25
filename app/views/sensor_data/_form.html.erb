@@ -1,4 +1,5 @@
-<%= form_for(@sensor_datum) do |f| %>
+<%# Expects local variable back_links to be defined %>
+<%= form_for(@sensor_datum, html: {:class => "centered center-block"}) do |f| %>
   <% if @sensor_datum.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sensor_datum.errors.count, "error") %> prohibited this sensor_datum from being saved:</h2>
@@ -19,7 +20,12 @@
     <%= f.label :device_id %><br>
     <%= f.number_field :device_id %>
   </div>
+  <div class="field">
+    <%= f.label :experiment_id %><br>
+    <%= f.number_field :experiment_id %>
+  </div>
   <div class="actions">
+    <%= back_links %>
     <%= f.submit %>
   </div>
 <% end %>

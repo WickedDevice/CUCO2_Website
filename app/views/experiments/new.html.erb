@@ -1,6 +1,2 @@
 <% provide :title, "New Experiment" %>
-<div class="centered">
-
-	<%= render 'form' %>
-</div>
-<%= link_to 'Cancel', experiments_path %>
+	<%= render 'form', back_links: link_to('Cancel', experiments_path) %>

@@ -46,7 +46,7 @@ class DevicesController < ApplicationController
 
     respond_to do |format|
       if success
-        format.html { redirect_to @device, notice: 'Device was successfully created.' }
+        format.html { redirect_to @device, notice: 'Sensor was successfully created.' }
         format.json { render :show, status: :created, location: @device }
       else
         format.html { render :new }
@@ -66,7 +66,7 @@ class DevicesController < ApplicationController
           redirect_to params[:device][:redirect_to]
           return
         end
-        format.html { redirect_to @device, notice: 'Device was successfully updated.' }
+        format.html { redirect_to @device, notice: 'Sensor was successfully updated.' }
         format.json { render :show, status: :ok, location: @device }
       else
         format.html { render :edit }
@@ -80,7 +80,7 @@ class DevicesController < ApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
+      format.html { redirect_to devices_url, notice: 'Sensor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

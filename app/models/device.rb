@@ -2,6 +2,7 @@ class Device < ActiveRecord::Base
 	validates :encryption_key, presence: true
 	validates :experiment_id, numericality: { only_integer: true, allow_nil: true }
 	validates :address, uniqueness: true
+	validates :name, presence: true
 
 	#validates :user_id, numericality: { only_integer: true }
 	belongs_to :experiment # This is the active experiment

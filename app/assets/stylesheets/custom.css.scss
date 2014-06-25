@@ -83,6 +83,10 @@ form.centered {
 		float:right;
 	}
 
+	input[type=number] {
+		width: 100%;
+	}
+
 	input[type="text"] {
 		width: 100%;
 	}
@@ -188,18 +192,29 @@ $colHighlight   : $color-quartenary;
 
 
 #logo {
-	color: $colDefault;
-	float: left;
-	margin-right: 10px;
-	font-size: 1.7em;
-	text-transform: uppercase;
-	letter-spacing: -1px;
-	font-weight: bold;
-	line-height: 1;
-	&:hover {
-		text-decoration: none;
-		color: $colHighlight;
+	margin:6px;
+	padding:6px;
+	display:inline-block;
+	img {
+		height:1em;
+		padding-bottom:0.2em;
+		padding-right:6px;
 	}
+	a {
+		color: $colDefault;
+		float: left;
+		margin-right: 10px;
+		font-size: 1.7em;
+		text-transform: uppercase;
+		letter-spacing: -1px;
+		font-weight: bold;
+		line-height: 1;
+		&:hover {
+			text-decoration: none;
+			color: $colHighlight;
+		}
+	}
+
 }
 
 .title {
@@ -217,8 +232,10 @@ $colHighlight   : $color-quartenary;
 }
 
 #title-small {
+	float:top;
 	display:none;
-	padding: 6px 40px;
+	padding: 7px 40px;
+	margin:7px;
 }
 
 #title-large {

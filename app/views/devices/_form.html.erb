@@ -1,7 +1,8 @@
+<%# Expects to be handed a back_links variable, and a submit_name %>
 <%= form_for(@device, html: {:class => "centered center-block"}) do |f| %>
   <% if @device.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@device.errors.count, "error") %> prohibited this device from being saved:</h2>
+      <h2><%= pluralize(@device.errors.count, "error") %> prohibited this sensor from being saved:</h2>
 
       <ul>
       <% @device.errors.full_messages.each do |message| %>
@@ -32,6 +33,7 @@
     <%= f.text_field :notes %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= back_links %>
+    <%= f.submit submit_name%><%# #submit_name wouldn't be necessary if devices weren't called sensors %>
   </div>
 <% end %>

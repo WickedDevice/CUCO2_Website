@@ -1,6 +1,5 @@
 <% provide :title, "Edit Sensor" %>
 
-<%= render 'form' %>
+<% back_links = link_to('Cancel', devices_path)  +" | " + link_to('Show', @device) %>
 
-<%= link_to 'Show', @device %> |
-<%= link_to 'Cancel', devices_path %>
+<%= render 'form', back_links: back_links, submit_name: "Update Sensor" %>

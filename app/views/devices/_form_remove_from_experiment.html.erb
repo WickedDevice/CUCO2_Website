@@ -1,7 +1,7 @@
 <%= semantic_form_for(@device, html: { style: "display:inline-block" }) do |f| %>
   <% if @device.errors.any? %>
     <div id="error_explanation" style="display">
-      <h2><%= pluralize(device.errors.count, "error") %> prohibited this device from being saved:</h2>
+      <h2><%= pluralize(device.errors.count, "error") %> prohibited this sensor from being saved:</h2>
 
       <ul>
       <% @device.errors.full_messages.each do |message| %>

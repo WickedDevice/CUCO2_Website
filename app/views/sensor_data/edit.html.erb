@@ -1,6 +1,3 @@
 <h1>Edit sensor_datum</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @sensor_datum %> |
-<%= link_to 'Cancel', sensor_data_path %>
+<%= render 'form', back_links: (link_to('Show', @sensor_datum) + " | " + link_to('Cancel', sensor_data_path)) %>
