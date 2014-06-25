@@ -53,11 +53,12 @@ class Experiment < ActiveRecord::Base
 	end
 
 	def checkout_devices
-		puts 'checking out devices'
+		puts "checking out #{devices.count} devices"
+		success = true
 		self.devices.each do |device|
-			device.checkout(self.id) rescue return false
+			device.checkout(self.id) rescue success = false
 		end
-		return true
+		return success
 	end
 
 	def checkin_devices

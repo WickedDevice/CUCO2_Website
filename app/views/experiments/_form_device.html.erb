@@ -1,5 +1,6 @@
 <%# Expects device and experiment_id to be defined%>
 <%    
+    disabled = false
     if device.experiment_id == experiment_id
       label = "Deactivate"
       value = nil
@@ -8,6 +9,11 @@
       label = "Activate"
       value = @experiment.id
       form_html = ""
+
+      if device.in_experiment?
+        label = "Unavailable"
+        disabled = true
+      end
     end
 
     %>
@@ -30,7 +36,7 @@
   </div>
 
   <div class="actions" style="margin:0">
-    <%= f.submit label %>
+    <%= f.submit label, disabled: disabled %>
   </div>
 
 <% end %>

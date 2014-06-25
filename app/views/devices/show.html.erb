@@ -26,7 +26,7 @@
 <p><br>
   <strong>Past experiments:</strong>
   <ul>
-  <% policy_scope(@device.device_experiments).each do |de| %>
+  <% policy_scope(@device.device_experiments).order(created_at: :desc).each do |de| %>
     <% if de.experiment %>
     <li>
       <%= link_to de.experiment.name, de.experiment %> (<%= de.location.nil? ? "No location" : de.location %>)

@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :redirect_to, :value => @device %>
+  <%= f.hidden_field :redirect_to, :value => device_path(@device) %>
   <%= f.hidden_field :experiment_id, :value => nil %>
 
   <div class="actions" style="float:left; margin:0;">

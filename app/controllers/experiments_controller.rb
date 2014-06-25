@@ -70,7 +70,7 @@ class ExperimentsController < ApplicationController
       updated = @experiment.update(experiment_params)
 
       if updated
-        format.html { redirect_to @experiment, notice: 'Experiment was successfully updated.' }
+        format.html { redirect_to @experiment, notice: flash[:notice] || 'Experiment was successfully updated.' }
         format.json { render :show, status: :ok, location: @experiment }
       else
         format.html { render :edit, notice: 'Unable to update experiment.' }
@@ -98,13 +98,17 @@ class ExperimentsController < ApplicationController
   private
 
     def edit_helper
+      success = true
       #Deals with special cases in forms
 
       #@experiment.request_only_devices(params[:experiment][:device_ids])
       @experiment.request_additional_devices(params[:experiment][:device_ids])
 
       if params[:experiment][:start] == "now"
-        @experiment.checkout_devices()
+        if not @experiment.checkout_devices()
+          success &= false
+          flash[:notice] = "Unable to activate all sensors - some are in another experiment"
+        end
         params[:experiment][:start] = Time.now
       end
 
@@ -122,7 +126,10 @@ class ExperimentsController < ApplicationController
       end
 
       if params[:experiment][:checkout] =="all"
-        @experiment.checkout_devices()
+        if not @experiment.checkout_devices()
+          success &= false
+          flash[:notice] = "Unable to activate all of the sensors - some are in another experiment"
+        end
       elsif params[:experiment][:checkout]=="none"
         @experiment.checkin_devices()
       end
@@ -144,6 +151,7 @@ class ExperimentsController < ApplicationController
           end
         end
       end
+      return success
     end
 
     # Use callbacks to share common setup or constraints between actions.
