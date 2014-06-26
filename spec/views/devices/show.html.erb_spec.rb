@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "devices/show", :type => :view do
   before(:each) do
-    @device = assign(:device, Device.create!())
+    @device = assign(:device, Device.create!({name: "Test device", "user_id" => 1, "encryption_key" => "secret"}))
   end
 
   it "renders attributes in <p>" do

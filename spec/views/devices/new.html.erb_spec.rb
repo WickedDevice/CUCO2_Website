@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "devices/new", :type => :view do
   before(:each) do
+  	view.stub(:current_user) {User.find(1)}
     assign(:device, Device.new())
   end
 

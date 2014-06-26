@@ -24,11 +24,11 @@ RSpec.describe DevicesController, :type => :controller do
   # Device. As you add validations to Device, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    {name: "Test device", "user_id" => 1}
+    {name: "Test device", "user_id" => 1, "encryption_key" => "secret"}
   }
 
   let(:invalid_attributes) {
-    {name: "Other attributes are invalid", user_id: "Not_a_num", experiment_id: "Also not a number"}
+    {name: "Other attributes are invalid", user_id: "Not_a_num", experiment_id: "Also not a number", encryption_key: ""}
   }
 
   # This should return the minimal set of values that should be in the session

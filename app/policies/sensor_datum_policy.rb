@@ -19,7 +19,7 @@ class SensorDatumPolicy < ApplicationPolicy
   end
 
   def update?
-    !record.user_id.nil? and record.user_id == user.id
+    (!record.user_id.nil? and record.user_id == user.id) || user.admin?
   end
 
   def edit?
@@ -27,7 +27,7 @@ class SensorDatumPolicy < ApplicationPolicy
   end
 
   def destroy?
-    !record.user_id.nil? and record.user_id == user.id
+    (!record.user_id.nil? and record.user_id == user.id) || user.admin?
   end
   
   class Scope < Struct.new(:user, :scope)

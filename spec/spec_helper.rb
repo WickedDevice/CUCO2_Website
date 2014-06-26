@@ -82,6 +82,6 @@ def create_test_session()
   if($VERBOSE)
     quash_warnings
   end
-  User.first.admin = true
+  throw "Test expects user 1 to be admin" unless User.first.admin == true
   return {current_user_id: 1}
 end
