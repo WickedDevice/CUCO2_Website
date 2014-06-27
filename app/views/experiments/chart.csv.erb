@@ -4,10 +4,10 @@
 CSV.generate do |csv|
 	csv << ["Time"] + (@devices.map {|x| x.name})
 
-	chart_data(@experiment).each do |time, values|
+	chart_data(@experiment, max_points: 500).each do |time, values|
 		row = [time.in_time_zone.to_formatted_s(:custom_csv)]
 		
-		values.sort_by {|x| x.device_id}
+		values.sort_by! {|x| x.device_id}
 		@devices.each do |device|
 			if !values[0].nil? && values[0].device_id == device.id
 				row << values.shift.ppm

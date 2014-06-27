@@ -78,50 +78,34 @@ class Experiment < ActiveRecord::Base
 
 	def to_csv
 		CSV.generate do |csv|
+
+			#setting up headings
 			csv << ["Experiment:",self.name, "Location:", self.location]
 			csv << ["Start:", self.start.nil? ? "Not started" : self.start.in_time_zone.to_s(:custom_csv),
 					"End:",   self.end.nil?   ? "Not ended" : self.end.in_time_zone.to_s(:custom_csv)]
 			csv << [""]
 			csv << ["Parts per million of CO2"]
 
-			#This fairly slow
-			rows = {}
-			self.sensor_data.each do |datum|
-				if rows.has_key? datum.created_at
-					rows[datum.created_at][datum.device_id] = datum.ppm
-				else
-					rows[datum.created_at] = { datum.device_id => datum.ppm }
+			chart_data = ExperimentsHelper.chart_data(self, max_points: nil)
+
+			#Column names
+			des = device_experiments.sort_by {|x| x.device_id}
+			csv << ["Time"] + des.map {|x| x.location == "" ? x.device.name : x.location}
+
+			chart_data.each do |time, values|
+				row = [time.in_time_zone.to_formatted_s(:custom_csv)]
+				
+				values.sort_by! {|x| x.device_id}
+				device_experiments.each do |de|
+					if !values[0].nil? && values[0].device_id == de.device_id
+						row << values.shift.ppm
+					else
+						row << nil
+					end
 				end
+
+				csv << row
 			end
-
-			column_names = ["Time"]
-			des = self.device_experiments
-			des.each do |de|
-				column_names << de.location
-			end
-
-			csv << column_names
-
-			rows.each do |time, value|
-				row_data = [time.in_time_zone.to_s(:custom_csv)]
-				des.each do |de|
-					row_data << value[de.id] || ""
-				end
-				csv << row_data
-			end
-
-
-=begin
-			self.device_experiments.each do |de|
-						#Not very fast
-				data_at_location = SensorDatum.where device_id: de.device_id, experiment_id: de.experiment_id
-				csv << [de.location, "Time:", "ppm"]
-				data_at_location.each do |datum|
-					csv << ["", datum.created_at, datum.ppm]
-				end
-				csv << [""]
-			end
-=end
 		end
 	end
 

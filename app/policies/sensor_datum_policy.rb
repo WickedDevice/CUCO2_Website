@@ -7,7 +7,7 @@ class SensorDatumPolicy < ApplicationPolicy
 
 
   def index?
-    true if(user.admin?)
+    true if(user) #However, user should (probably) be admin, unless using index to download a csv
   end
 
   def create?

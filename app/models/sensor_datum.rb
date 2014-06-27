@@ -31,8 +31,14 @@ class SensorDatum < ActiveRecord::Base
 			csv << ["CO2 data as of #{Time.zone.now.to_s(:custom_csv)}"]
 			csv << ["ppm","Time measured", "Experiment","Experiment location", "Sensor location", "Sensor name"]
 			all.each do |datum|
-				location = DeviceExperiment.find_by(experiment_id: datum.experiment_id, device_id: datum.device_id).location
-				csv << [datum.ppm, datum.created_at.in_time_zone.to_s(:custom_csv) , datum.experiment.name, datum.experiment.location, location, datum.device.name]
+				device_experiment = DeviceExperiment.find_by(experiment_id: datum.experiment_id, device_id: datum.device_id)
+				device_location = device_experiment.nil? ? "Unknown": device_experiment.location
+
+				experiment = datum.experiment
+				experiment_location = experiment.nil? ? "Unknown" : experiment.location
+				experiment_name = experiment.nil? ? "No experiment" : experiment.name
+
+				csv << [datum.ppm, datum.created_at.in_time_zone.to_s(:custom_csv) , experiment_name, experiment_location, device_location, datum.device.name]
 			end
 		end
 	end
