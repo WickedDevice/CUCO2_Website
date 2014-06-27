@@ -18,7 +18,7 @@
 
     %>
 
-<%= semantic_form_for(device, html: { :onsubmit => form_html }) do |f| %>
+<%= form_for(device, html: { :onsubmit => form_html }) do |f| %>
  <% if device.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(device.errors.count, "error") %> prohibited this device from being saved:</h2>
