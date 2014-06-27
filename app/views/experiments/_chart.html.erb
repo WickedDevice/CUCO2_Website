@@ -5,7 +5,7 @@ new Dygraph(
   document.getElementById("experiment_chart"),
   "<%=@experiment.id%>/chart.csv",
   { //Options
-    //showRoller:true,
+    connectSeparatedPoints: true, //Otherwise, experiments with multiple sensors are a mess
 
     width: false,
     height: 320,
