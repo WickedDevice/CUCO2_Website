@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get 'sessions/destroy', to: 'sessions#destroy'
   
   get 'welcome/index'
-
+  get 'welcome/faq'
+  get 'welcome/buy'
 
   post 'first_contact/:address', to: "devices#first_contact"
   get  'first_contact/:address', to: "devices#first_contact"

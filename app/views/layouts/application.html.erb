@@ -13,7 +13,7 @@
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>" style="<%= yield :body_style %>">
+  <body class="<%= controller_name %> <%= action_name %> <%= content_for(:body_class) %>" style="<%= yield :body_style %>">
 	<%= render 'layouts/header' %>
 	<div class="container <%= yield :container_class %>">
     <% flash.each do |key, value| %>

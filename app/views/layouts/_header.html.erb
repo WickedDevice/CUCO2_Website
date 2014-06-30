@@ -36,7 +36,9 @@ end %>
 					<%= content_for(:navbar_title) || yield(:title) %>
 				</div>
 				<ul class="<%= ul_class%>" >
+					<li><%= link_to "FAQ", controller: :welcome, :action => :faq %></li>
 					<% unless current_user.nil? %>
+					<li><%= link_to "Buy", controller: :welcome, :action => :buy %></li>
 					<li><%= link_to "Sensors", devices_path %></li>
 					<li><%= link_to "Experiments", experiments_path %></li>
 					<% end %>

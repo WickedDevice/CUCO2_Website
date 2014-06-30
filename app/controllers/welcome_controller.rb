@@ -5,4 +5,10 @@ class WelcomeController < ApplicationController
   skip_before_action :logged_out_redirect #Causes infinite loop if not disabled
   def index
   end
+
+  def faq
+  end
+
+  def buy
+  end
 end
