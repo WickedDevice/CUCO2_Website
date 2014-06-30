@@ -13,9 +13,9 @@
   <%= csrf_meta_tags %>
   <%= render 'layouts/shim' %>
   </head>
-  <body>
+  <body style="<%= yield :body_style %>">
 	<%= render 'layouts/header' %>
-	<div class="container">
+	<div class="container <%= yield :container_class %>">
     <% flash.each do |key, value| %>
       <% key = "info" if key =="notice"
          key = "danger" if key =="errors" %>

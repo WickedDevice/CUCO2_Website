@@ -1,6 +1,11 @@
-<div class="welcome" style="height:300px;"><h1 style="color:green;">Fix this background soon</h1></div>
+<% provide :container_class, "welcome-container" %>
+<% provide :body_style, "margin:none; padding:0 0 0 0;" %>
+<div class="welcome" style="height:300px;">
+	<h1>Wicked Device <span style="font-size:50%">LLC</span><br>CO2 Sensor Monitoring</h1>
+	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+</div>
 
-<h1>Wicked Device <span style="font-size:50%">LLC</span><br>CO2 Sensor Monitoring</h1>
+
 <% if current_user.nil? %>
 <p>Please <%= link_to link_to("login", { :controller => "sessions", :action => "new" }) %></p>
 <% end %>
