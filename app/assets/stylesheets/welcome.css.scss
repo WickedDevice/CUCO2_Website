@@ -3,29 +3,26 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /* Welcome/home page */
+$height:     300px; /* Height of the background image section. */
 
-.welcome {
+.welcome .hero {
 	width:100%;
+	height:$height;
     background-image: image-url("welcome_background.jpg");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
-    position:relative;
 
-
-    h1 {
-    	padding:5px;
-    	color:#ffffff;
-    }
-
-    p {
+    .col-sm-4 {
+    	height:$height;
     	color:#000000;
     	background:rgba(255,255,255,0.7);
-    	
-    	position:absolute; bottom:0;
+    	background-size: cover;
 
     	padding:0.5em;
     	margin-bottom:0px;
+
+    	padding-top:3em;
     }
 }
 
@@ -33,4 +30,102 @@
 	width:100%;
 	margin:none;
 	padding:10px 0 0 0;
+}
+
+.welcome .llc {
+	font-size:50%;
+}
+
+.welcome .title {
+	font-size:1em;
+}
+
+/* Recolored header */
+$color-primary:			#78c26b; /* mid-green  -- primary navbar color*/
+$color-secondary:  		#389c47; /* 'dark' green -- navbar selected */
+$color-tertiary:   		#f8ffff; /* Very light color -- light text */
+$color-quartenary: 		#9cfed4; /* Cyan		-- navbar selected text */
+
+/* Controls column & table backgrounds*/
+$color-very-pale:		#fcfcfc;
+$color-pale:			#f8f8f8;
+
+.welcome {
+	.navbar-inner{
+	    text-align:center;
+	}
+
+	$bgDefault      : $color-pale;
+	$bgHighlight    : $color-very-pale;
+	$colDefault     : #222222;
+	$colHighlight   : $color-secondary;
+	.navbar-custom {
+
+		background-color: $bgDefault;
+		border-color: $bgHighlight;
+		.navbar-brand {
+			color: $colDefault;
+			&:hover, &:focus { 
+				color: $colHighlight; }}
+		.navbar-text {
+			color: $colDefault; }
+		.navbar-nav {
+			> li {
+				> a {
+					color: $colDefault;
+					&:hover,  &:focus {
+						background-color: $bgHighlight;
+						color: $colHighlight; }}}
+			> .active {
+				> a, > a:hover, > a:focus {
+					color: $colHighlight;
+					background-color: $bgHighlight; }}
+			> .open {
+				> a, > a:hover, > a:focus {
+					color: $colHighlight;
+					background-color: $bgHighlight; }}}
+		.navbar-toggle {
+			border-color: $bgHighlight;
+			&:hover, &:focus {
+				background-color: $bgHighlight; }
+			.icon-bar {
+				background-color: $colDefault; }}
+		.navbar-collapse,
+		.navbar-form {
+			border-color: $colDefault; }
+		.navbar-link {
+			color: $colDefault;
+			&:hover {
+				color: $colHighlight; }}}
+	@media (max-width: 767px) {
+		.navbar-inner {
+			text-align:left;
+		}
+		.navbar-custom .navbar-nav .open .dropdown-menu {
+			> li > a {
+				color: $colDefault;
+				&:hover, &:focus {
+					color: $colHighlight; }}
+			> .active {
+				> a, > a:hover, > a:focus, {
+					color: $colHighlight;
+					background-color: $bgHighlight; }}}
+	}
+
+
+	#logo {
+		img {
+		}
+		a {
+			color: $colDefault;
+			&:hover {
+				color: $colHighlight;
+			}
+		}
+
+	}
+
+	.title {
+		color: $colDefault;
+	}
 }

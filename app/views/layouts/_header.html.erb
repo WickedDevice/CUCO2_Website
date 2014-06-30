@@ -18,7 +18,7 @@ end %>
 				</div>
 
 				<div id="title-small" class="nav navbar-nav nav-center title">
-					<%= yield :title %>
+					<%= content_for(:navbar_title) || yield(:title) %>
 				</div>
 
 				<% unless current_user.nil? %>
@@ -33,7 +33,7 @@ end %>
 
 			<div>
 				<div id="title-large" class="nav navbar-nav nav-center title">
-					<%= yield :title %>
+					<%= content_for(:navbar_title) || yield(:title) %>
 				</div>
 				<ul class="<%= ul_class%>" >
 					<% unless current_user.nil? %>
