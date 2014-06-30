@@ -154,6 +154,8 @@ $colHighlight   : $color-quartenary;
 	.navbar-nav {
 		> li {
 			> a {
+				padding-left: 7px;
+				padding-right: 7px;
 				color: $colDefault;
 				&:hover,  &:focus {
 					background-color: $bgHighlight;

@@ -1,4 +1,4 @@
-class WelcomeController < ApplicationController
+class PagesController < ApplicationController
   force_ssl unless Rails.env.development?
   skip_after_action :verify_authorized
   skip_after_action :verify_policy_scoped

@@ -1,12 +1,12 @@
-// Place all the styles related to the welcome controller here.
+// Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-/* Welcome/home page */
+/* pages/home page */
 $height:     300px; /* Height of the background image section. */
 $dark-color: #000044;
 
-.welcome .hero {
+.pages .hero {
 	width:100%;
 	height:$height;
     background-image: image-url("welcome_background.jpg");
@@ -59,7 +59,7 @@ $dark-color: #000044;
 	}
 }
 
-.welcome-container {
+.home-container {
 	width:100%;
 	margin:none;
 	padding:10px 0 0 0;

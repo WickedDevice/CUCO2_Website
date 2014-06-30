@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   post 'sessions/destroy', to: 'sessions#destroy'
   get 'sessions/destroy', to: 'sessions#destroy'
   
-  get 'welcome/index'
-  get 'welcome/faq'
-  get 'welcome/buy'
+  get 'pages/index'
+  get 'pages/faq'
+  get 'pages/buy'
 
   post 'first_contact/:address', to: "devices#first_contact"
   get  'first_contact/:address', to: "devices#first_contact"
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'pages#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
