@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+	force_ssl unless Rails.env.development?
 	skip_after_action :verify_authorized
 	skip_before_action :logged_out_redirect
 
