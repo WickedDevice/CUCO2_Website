@@ -1,4 +1,5 @@
 class DevicesController < ApplicationController
+  force_ssl except: :first_contact unless Rails.env.development?
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
   skip_after_action :verify_authorized, :only => :first_contact

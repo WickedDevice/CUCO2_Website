@@ -1,4 +1,5 @@
 class SensorDataController < ApplicationController
+  force_ssl except: :batch_create unless Rails.env.development?
   protect_from_forgery with: :null_session
   before_action :set_sensor_datum, only: [:show, :edit, :update, :destroy]
 

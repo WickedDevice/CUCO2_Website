@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   include Pundit
   include SessionsHelper
-
+  
+  force_ssl unless Rails.env.development?
+  
   before_action :logged_out_redirect
   after_action :verify_authorized, :except => :index
   after_action :verify_policy_scoped, :only => :index
