@@ -18,7 +18,7 @@
       <tr>
         <td><%= link_to device.name, device %></td>
         <td><%= device.address %></td>
-        <td><%= device.notes %></td>
+        <td><%== device.notes.length > 20 ? h(device.notes.first(20)) + link_to("...", device) : device.notes %></td>
         <td><%= link_to(device.experiment.name, device.experiment) if device.in_experiment? && ExperimentPolicy.new(current_user, device.experiment).show? %></td>
         <td><%= link_to 'Show', device %></td>
         <td><%= link_to 'Edit', edit_device_path(device) %></td>
