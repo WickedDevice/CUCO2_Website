@@ -11,7 +11,7 @@ class SensorDataController < ApplicationController
   # GET /sensor_data
   # GET /sensor_data.json
   def index
-    @sensor_data = policy_scope SensorDatum.all
+    @sensor_data = policy_scope SensorDatum.all.page params[:page]
 
     respond_to do |format|
       format.html

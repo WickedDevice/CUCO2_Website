@@ -1,4 +1,5 @@
 <table class="table">
+  <%= paginate @pages %>
   <thead>
     <tr>
       <th>Title</th>
@@ -21,7 +22,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= paginate @pages %>
 <br>
 
 <%= link_to 'New Page', new_page_path %>

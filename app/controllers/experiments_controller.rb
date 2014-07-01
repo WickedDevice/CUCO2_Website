@@ -4,7 +4,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments
   # GET /experiments.json
   def index
-    @experiments = policy_scope Experiment.all.order(created_at: :desc)
+    @experiments = policy_scope Experiment.all.order(created_at: :desc).page(params[:page])
     respond_to do |format|
       format.html
       format.csv {

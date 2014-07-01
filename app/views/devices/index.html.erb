@@ -1,6 +1,7 @@
 <% provide :title, "Sensors" %>
 
 <p>A list of all sensors. Click "New sensor" to add it onto the screen.</p>
+<%= paginate @devices %>
 <table class="table">
   <thead>
     <tr>
@@ -26,7 +27,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= paginate @devices %>
 <br>
 
 <%= link_to 'New Sensor', new_device_path %>

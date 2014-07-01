@@ -21,7 +21,7 @@ class PagesController < ApplicationController
 
     # GET /pages
   def index
-    @pages = policy_scope Page.all
+    @pages = policy_scope Page.all.page(params[:page])
 
     respond_to do |format|
       format.html

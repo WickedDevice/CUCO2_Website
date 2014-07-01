@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = policy_scope User
+    @users = policy_scope User.all.page params[:page]
   end
 
   # GET /users/1
@@ -52,10 +52,6 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def index
-    @users = policy_scope(User.all)
   end
 
   # DELETE /users/1

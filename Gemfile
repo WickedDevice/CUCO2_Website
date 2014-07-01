@@ -9,8 +9,11 @@ group :production do
   gem 'mysql2'
 end
 
-# Used for pages
+# Used for Pages (our static pages resource)
 gem 'github-markdown'
+
+# Pagination for experiments & sensor_data
+gem 'kaminari'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

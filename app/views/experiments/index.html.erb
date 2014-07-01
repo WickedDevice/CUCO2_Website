@@ -7,6 +7,7 @@
 <p>
   An experiment is made up of one or more sensors. Each experiment has a defined start and end, and will run automatically until stopped or a threshold CO2 concentration is reached. 
 </p>
+<%= paginate @experiments %>
 <table class="table">
   <thead>
     <tr>
@@ -34,7 +35,7 @@
     <% end %>
   </tbody>
 </table>
-
+<%= paginate @experiments %>
 <br>
 
 <%= link_to 'New Experiment', new_experiment_path %>
