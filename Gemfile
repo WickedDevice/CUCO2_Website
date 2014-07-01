@@ -9,6 +9,9 @@ group :production do
   gem 'mysql2'
 end
 
+# Used for pages
+gem 'github-markdown'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use bootstrap

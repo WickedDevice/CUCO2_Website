@@ -1,0 +1,18 @@
+<% if @page.nil? %>
+	<p>Page not found</p>
+<% else %>
+
+<% provide :title, @page.title %>
+<% provide :navbar_title, @page.long_title %>
+
+<div class="page-content">
+  <%== GitHub::Markdown.render @page.content %>
+</div>
+
+
+<% if current_user && current_user.admin? %>
+<br>
+<%= link_to 'Show all pages', pages_path %> | 
+<%= link_to 'Edit', edit_page_path(@page) %>
+<% end %>
+<% end %>

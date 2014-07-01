@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626132301) do
+ActiveRecord::Schema.define(version: 20140701125820) do
 
   create_table "device_experiments", force: true do |t|
     t.integer  "device_id"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20140626132301) do
     t.integer  "user_id"
     t.text     "details"
   end
+
+  create_table "pages", force: true do |t|
+    t.string   "long_title"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pages", ["title"], name: "index_pages_on_title", unique: true
 
   create_table "sensor_data", force: true do |t|
     t.integer  "ppm"

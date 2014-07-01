@@ -61,6 +61,7 @@ GEM
       actionpack (>= 3.0)
     formtastic-bootstrap (3.0.0)
       formtastic (>= 2.2)
+    github-markdown (0.6.5)
     hike (1.2.3)
     i18n (0.6.9)
     jbuilder (2.1.1)
@@ -183,6 +184,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   formtastic-bootstrap
+  github-markdown
   jbuilder (~> 2.0)
   jquery-rails
   mysql2

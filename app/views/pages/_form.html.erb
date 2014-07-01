@@ -1,0 +1,31 @@
+<%# Expects local variable back_links to be defined %>
+<%= form_for(@page, html: {:class => "centered center-block"}) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %> <small>(Don't change this if it is used by a built in route)</small><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :long_title %><br>
+    <%= f.text_field :long_title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= back_links %>
+    <%= f.submit %>
+  </div>
+<% end %>
