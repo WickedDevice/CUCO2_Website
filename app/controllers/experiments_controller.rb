@@ -4,7 +4,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments
   # GET /experiments.json
   def index
-    @experiments = policy_scope Experiment.all.order(created_at: :desc).page(params[:page])
+    @experiments = policy_scope Experiment.where(user_id: current_user.id).order(created_at: :desc).page(params[:page])
     respond_to do |format|
       format.html
       format.csv {
@@ -31,7 +31,7 @@ class ExperimentsController < ApplicationController
   # GET /experiments/new
   def new
     @experiment = Experiment.new(user_id: session[:current_user_id])
-    @devices = policy_scope Device.all
+    @devices = policy_scope Device.where(user_id: current_user.id)
     authorize @experiment
   end
 
@@ -55,7 +55,7 @@ class ExperimentsController < ApplicationController
         format.html { redirect_to @experiment, notice: 'Experiment was successfully created.' }
         format.json { render :show, status: :created, location: @experiment }
       else
-        format.html { @devices = policy_scope(Device.all); render :new }
+        format.html { @devices = policy_scope(Device.where(user_id: current_user.id)); render :new }
         format.json { render json: @experiment.errors, status: :unprocessable_entity }
       end
     end
@@ -159,7 +159,7 @@ class ExperimentsController < ApplicationController
     def set_experiment
       @experiment = Experiment.find(params[:id])
       authorize @experiment
-      @devices = policy_scope Device.all
+      @devices = policy_scope Device.where(user_id: current_user.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -29,7 +29,7 @@
   <% if current_user.admin? %>
   <div class="field">
     <%= f.label :encryption_key %>
-    <%= f.text_field :encryption_key %>
+    <%= f.text_field :encryption_key, placeholder: "≤ 31 characters, no tabs, no spaces", value: @device.encryption_key || SecureRandom.base64(32)[0..30] %>
   </div>
   <% end %>
 

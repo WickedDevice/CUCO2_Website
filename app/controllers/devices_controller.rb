@@ -8,7 +8,7 @@ class DevicesController < ApplicationController
   # GET /devices
   # GET /devices.json
   def index
-    @devices = policy_scope(Device.all.page(params[:page]))
+    @devices = policy_scope(Device.where(user_id: current_user.id).page(params[:page]))
   end
 
   # GET /devices/1
@@ -50,7 +50,7 @@ class DevicesController < ApplicationController
         format.html { redirect_to @device, notice: 'Sensor was successfully created.' }
         format.json { render :show, status: :created, location: @device }
       else
-        format.html { render :new }
+        format.html { @device = Device.new(device_params); render :new }
         format.json { render json: @device.errors, status: :unprocessable_entity }
       end
     end

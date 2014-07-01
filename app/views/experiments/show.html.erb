@@ -11,8 +11,12 @@
  <p>This experiment has no data yet.
 
  <% if @experiment.active? %>
+ <%# Not printing anything %>
  <% elsif @experiment.start.nil? %>
  Press Start Experiment to begin collecting data.
+ <% elsif !@experiment.end.nil?%> <%#should be true %>
+ <br>
+ Reopen experiment or wait for data to upload from already active sensors to add data.
  <% end %>
  </p>
  <% else %>
