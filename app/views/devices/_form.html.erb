@@ -16,11 +16,16 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  
   <div class="field">
     <%= f.label :address, "MAC address" %><br>
+    <% if @device.created_at.nil? || (current_user.admin?) %>
     <%= f.text_field :address %>
+    <% else %>
+    <%= @device.address %>
+     <% end %>
   </div>
-
+ 
   <% if current_user.admin? %>
   <div class="field">
     <%= f.label :encryption_key %>

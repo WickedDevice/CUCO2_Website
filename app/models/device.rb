@@ -6,6 +6,7 @@ class Device < ActiveRecord::Base
 
 	#validates :user_id, numericality: { only_integer: true }
 	belongs_to :experiment # This is the active experiment
+	belongs_to :user
 	has_many :device_experiments
 	has_many :experiments, :through => :device_experiments
 

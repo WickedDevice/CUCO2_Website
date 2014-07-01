@@ -3,9 +3,9 @@
 <head>
 
   <% if content_for? :title %>
-  <title>CUCO2Website | <%= yield :title %></title>
+  <title>Aerosense | <%= yield :title %></title>
   <% else %>
-  <title>CUCO2Website</title>
+  <title>Aerosense</title>
   <% end %>
   
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -18,7 +18,7 @@
 	<div class="container <%= yield :container_class %>">
     <% flash.each do |key, value| %>
       <% key = "info" if key =="notice"
-         key = "danger" if key =="errors" %>
+         key = "danger" if key =="errors" || key =="error" %>
       <div class="alert alert-<%= key %> alert-dismissable">
         <%= value %>
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

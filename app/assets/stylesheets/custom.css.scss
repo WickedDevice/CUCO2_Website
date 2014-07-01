@@ -54,23 +54,17 @@ td {
 	padding: 5px;
 }
 
-.field_with_errors {
-	padding: 2px;
-	background-color:rgba(255,0,0,0.3);
-	display: table;
-	&:label {
-	}
-
-	&:input {
-	}
-}
-
 .col-sm-6 {
 	background-color: $color-very-pale;
 	border-style:solid;
 	border-width: 2px;
 	border-color: $color-pale;
 	padding-bottom: 1em;
+}
+
+nav.pagination {
+	margin:0.4em 5em 1em 5em;
+
 }
 
 /* Forms */
@@ -103,9 +97,15 @@ form.centered {
 	}
 }
 
-nav.pagination {
-	margin:0.4em 5em 1em 5em;
+.field_with_errors {
+	padding: 2px;
+	background-color:rgba(255,0,0,0.3);
+	display: table;
+	&:label {
+	}
 
+	&:input {
+	}
 }
 
 /* typography */
@@ -135,6 +135,13 @@ p {
 	line-height: 1.7em;
 }
 
+pre {
+	font-family:Arial;
+	background:none;
+	border:none;
+	padding:0 0 0 0;
+	margin: 0 0 0 0;
+}
 
 /* header */
 

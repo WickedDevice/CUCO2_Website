@@ -18,12 +18,13 @@
   <%= @device.address %>
 </p>
 
-<p>
-  <strong>Notes:</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;
-  <%= @device.notes %>
-</p>
+<div>
+<strong>Notes:</strong>
+  <pre><%= @device.notes %></pre>
+<br>
+</div>
 
-<p><br>
+<p>
   <strong>Past experiments:</strong>
   <ul>
   <% policy_scope(@device.device_experiments).order(created_at: :desc).each do |de| %>
