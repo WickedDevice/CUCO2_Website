@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "experiments/index" do
   before(:each) do
-    assign(:experiments, [
+    assign(:experiments,  Kaminari.paginate_array([
       stub_model(Experiment,
         :name => "Name",
         :location => "Location"
@@ -11,7 +11,7 @@ describe "experiments/index" do
         :name => "Name",
         :location => "Location"
       )
-    ])
+    ]).page(1))
   end
 
   it "renders a list of experiments" do

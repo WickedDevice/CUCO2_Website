@@ -1,5 +1,5 @@
 class ExperimentsController < ApplicationController
-  force_ssl unless Rails.env.development?
+  force_ssl unless Rails.env.development? || Rails.env.test?
   before_action :set_experiment, only: [:show, :edit, :update, :destroy]
   # GET /experiments
   # GET /experiments.json

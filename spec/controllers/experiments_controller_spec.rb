@@ -31,11 +31,11 @@ describe ExperimentsController do
   let(:valid_session) { create_test_session() }
 
   describe "GET index" do
-    it "assigns all experiments as @experiments" do
-      current_data = Experiment.all.to_a
+    it "assigns first 25 experiments as @experiments" do
+      current_data = Experiment.limit(25).order(created_at: :desc).to_a
       experiment = Experiment.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:experiments).should eq(current_data + [experiment])
+      assigns(:experiments).to_a.should eq([experiment] + current_data)
     end
   end
 

@@ -2,17 +2,15 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use sqlite3 as the database for Active Record in development & test
+gem 'sqlite3', group: [:development, :test]
 
-group :production do
-  gem 'mysql2'
-end
+gem 'mysql2', group: :production
 
 # Used for Pages (our static pages resource)
 gem 'github-markdown'
 
-# Pagination for experiments & sensor_data
+# Pagination
 gem 'kaminari'
 
 # Use SCSS for stylesheets

@@ -31,10 +31,10 @@ describe SensorDataController do
   let(:valid_session) { create_test_session() }
 
   describe "GET index" do
-    it "assigns all sensor_data as @sensor_data" do
+    it "assigns first 25 sensor_data as @sensor_data" do
       SensorDatum.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:sensor_data).should eq(SensorDatum.all.to_a)
+      assigns(:sensor_data).to_a.should eq(SensorDatum.all.limit(25).to_a)
     end
   end
 
