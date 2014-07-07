@@ -39,7 +39,7 @@ Then clone this repository into wherever you're putting it (in my case `/home/ra
 ```bash
 git clone git@github.com:WickedDevice/CUCO2_Website.git
 ```
-
+If you don't have git installed, you'll need to install it before this step. On Ubuntu this is: `sudo apt-get install git`.
 
 ### Environment variables
 The rails app expects the environment variables `SECRET_KEY_BASE` and `RAILS_DB_PASSWORD` to be defined. Or you can remove them from `config/secrets.yml` and `config/database.yml` respectively.
@@ -50,6 +50,8 @@ export SECRET_KEY_BASE=whateverMySecretKeyIs
 
 export RAILS_DB_PASSWORD=whateverTheMySQLPasswordIs
 ```
+You can generate a rails SECRET_KEY_BASE with the command `rake secret`.
+
 I ended up changing `./config/database.yml` to include the database password because `rails c production` wasn't happy without it.
 I've also put the database password in `/etc/profile`, but I don't think you need to.
 
