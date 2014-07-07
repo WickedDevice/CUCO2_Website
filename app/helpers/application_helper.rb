@@ -3,6 +3,7 @@ module ApplicationHelper
 	#A Vignere cipher using all printable ascii characters (' '..'~')
 	class Vignere
 		def self.encrypt(plaintext,  key)
+			return "No encryption key" if key.nil?
 			encrypted = ""
 			textLength = plaintext.nil? ? 0 : plaintext.length;
 			keyLength =  key.length;
