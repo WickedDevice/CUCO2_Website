@@ -1,9 +1,9 @@
-CO2 sensor backend website
-==========================
+CO<sub>2</sub> sensor backend website
+=====================================
 
 *Not complete*
 
-A Ruby on Rails server to manage and store data from CO2 sensors with the Wildfire board.
+A Ruby on Rails server to manage and store data from CO<sub>2</sub> sensors with the Wildfire board.
 The firmware for the WildFire is [here](https://github.com/WickedDevice/CO2Monitor "CO2Monitor Github Repository")
 
 Installation for development
