@@ -19,8 +19,31 @@
 
 var ready = function() {
 	$('[data-toggle="tooltip"]').tooltip();
+	autocollapse();
 }
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
 
+//Determine if we should collapse the navbar
+function autocollapse() {
+    var navbar = $('#navbar');
+
+    console.log(navbar.innerHeight());
+
+    navbar.removeClass('collapsed'); // set standard view
+    if(navbar.innerHeight() > 60) // check if we've got 2 lines
+        navbar.addClass('collapsed'); // force collapse mode
+
+    if(navbar.hasClass("collapsed") || $(window).width() <= 767) {
+    	$('#title-small').css("display", "inline-block");
+    	$('#title-large').css("display", "none");
+    } else {
+    	$('#title-small').css("display", "none");
+    	$('#title-large').css("display", "inline-block");
+    }
+   
+    
+}
+
+$(window).on('resize', autocollapse);
