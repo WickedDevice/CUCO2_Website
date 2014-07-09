@@ -149,6 +149,8 @@ pre {
     text-align:center;
 }
 
+
+/* Recoloring navbar */
 $bgDefault      : $color-primary;
 $bgHighlight    : $color-secondary;
 $colDefault     : $color-tertiary;
@@ -208,7 +210,7 @@ $colHighlight   : $color-quartenary;
 				background-color: $bgHighlight; }}}
 }
 
-
+/* Custom bits of the navbar */
 #logo {
 	margin:6px;
 	padding:6px;
@@ -302,6 +304,10 @@ $colHighlight   : $color-quartenary;
 	    padding-left:1000px;
 	    padding-right:1000px;
 	    border-top-width:1px;
+	}
+
+	.navbar-collapse.collapsing {
+		border-top-style:solid;
 	}
 
 	.navbar-collapse.collapse.in {
