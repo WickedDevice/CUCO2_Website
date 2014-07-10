@@ -52,8 +52,10 @@ class SensorDatum < ActiveRecord::Base
 
 		device = Device.find_by address: params["device_address"]
 		
-		#Offline sensor mode
+		
 		if params["experiment_id"].to_i == -1
+			#Offline sensor mode
+			
 			if device.in_experiment?
 				experiment_id = device.experiment_id
 			else

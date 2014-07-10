@@ -68,7 +68,7 @@ class SensorDataController < ApplicationController
 
     @success = true
     begin
-      new_params = JSON.parse(p ApplicationHelper::Vignere.decrypt(params["encrypted"], device.encryption_key)).merge({"device_address" => params["device_address"] })
+      new_params = p JSON.parse(p ApplicationHelper::Vignere.decrypt(params["encrypted"], device.encryption_key)).merge({"device_address" => params["device_address"] })
     rescue => e
       @success = false
       puts "Error decoding JSON:\t#{e}"
