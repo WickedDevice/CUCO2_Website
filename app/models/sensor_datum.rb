@@ -54,7 +54,7 @@ class SensorDatum < ActiveRecord::Base
 		
 		#Offline sensor mode
 		# => Still expects the user to have set up the experiment ahead of time.
-		if params["experiment_id"] == -1 and device.in_experiment?
+		if params["experiment_id"].to_i == -1 and device.in_experiment?
 			experiment_id = device.experiment_id
 		else
 			experiment_id = params["experiment_id"]
