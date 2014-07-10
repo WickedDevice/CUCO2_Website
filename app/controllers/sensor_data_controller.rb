@@ -78,7 +78,7 @@ class SensorDataController < ApplicationController
 
     @success &= SensorDatum.batch_create(new_params["sensor_datum"])
 
-    if(new_params["experiment_ended"] == "true")
+    if(new_params["sensor_datum"]["experiment_ended"] == "true")
       device.checkin(new_params["sensor_datum"]["experiment_id"].to_i)
     end
 
