@@ -53,15 +53,27 @@ class SensorDatum < ActiveRecord::Base
 		device = Device.find_by address: params["device_address"]
 		
 		#Offline sensor mode
-		# => Still expects the user to have set up the experiment ahead of time.
-		if params["experiment_id"].to_i == -1 and device.in_experiment?
-			experiment_id = device.experiment_id
+		if params["experiment_id"].to_i == -1
+			if device.in_experiment?
+				experiment_id = device.experiment_id
+			else
+				experiment_id = Experiment.create!(name: "Offline experiment for #{device.name}", location: "Offline", start: Time.now, :end => nil, co2_cutoff: 2000, user_id: device.user_id, details: "Automatically generated experiment").id
+				device.experiment_id = experiment_id
+				device.save!
+				DeviceExperiment.create!(location: "Offline", device_id: device.id, experiment_id: experiment_id)
+
+				device.checkout(experiment_id)
+			end
+
+			if params["experiment_ended"] == "true" || params["last_packet"] == "true"
+				device.checkin experiment_id
+				Experiment.find(experiment_id).update(:end => Time.now)
+			end
 		else
 			experiment_id = params["experiment_id"]
+			device.checkin experiment_id
 		end
 
-		device.checkin experiment_id
-		
 		params["ppm"].each do |time, ppm|
 			sensor_datum = SensorDatum.new()
 			sensor_datum.experiment_id = experiment_id
