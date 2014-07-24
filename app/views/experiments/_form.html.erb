@@ -35,7 +35,7 @@ var check_box_change = function(device_id) {
     <%= f.text_field :location %>
   </div>
   <div class="field">
-    <%= render "application/tooltip", tooltip: "Sensors stop collecting data when the carbon dioxide levels fall below this amount.", visible: f.label( :co2_cutoff, "CO<sub>2</sub> Cutoff:".html_safe) %><br>
+    <%= render "application/tooltip", tooltip: "Sensors stop collecting data when the carbon dioxide levels fall below this concentration (in ppm).", visible: f.label( :co2_cutoff, "CO<sub>2</sub> Cutoff:".html_safe) %><br>
     <%= f.text_field :co2_cutoff,
     value: (@experiment.co2_cutoff.nil? ? 2000 : @experiment.co2_cutoff) %>
   </div>
