@@ -84,9 +84,20 @@ class SensorDatum < ActiveRecord::Base
 			sensor_datum.ppm = ppm
 			sensor_datum.created_at = Time.at(time.to_i);
 
-			success &= sensor_datum.save
+			if ! sensor_datum.duplicate?
+				success &= sensor_datum.save
+			else
+				#Don't save duplicates.
+			end
 		end
 
 		return success
+	end
+
+	def duplicate?
+		return SensorDatum.where(experiment_id: self.experiment_id,
+								 device_id: self.device_id,
+								 created_at: self.created_at,
+								 ppm: self.ppm).count > (self.new_record? ? 0 : 1)
 	end
 end
