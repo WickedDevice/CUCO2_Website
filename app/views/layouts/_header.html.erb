@@ -1,10 +1,10 @@
 <% #This code should probably not be right here
+ul_class = "nav navbar-collapse collapse navbar-right navbar-nav navbar-custom"
 if current_user.nil?
 	user_button = link_to("Login", { :controller => "sessions", :action => "new" })
-	ul_class = "nav navbar-right navbar-nav navbar-custom"
 else
 	user_button = link_to(current_user.name, current_user)
-	ul_class = "nav navbar-collapse collapse navbar-right navbar-nav navbar-custom"
+	
 end %>
 
 <header id="navbar" class="navbar navbar-fixed-top navbar-custom">
@@ -21,14 +21,12 @@ end %>
 					<%= content_for(:navbar_title) || yield(:title) %>
 				</div>
 
-				<% unless current_user.nil? %>
 				<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<% end %>
 			</div>
 
 			<div>

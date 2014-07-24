@@ -81,7 +81,7 @@ class DevicesController < ApplicationController
   def destroy
     @device.destroy
     respond_to do |format|
-      format.html { redirect_to devices_url, notice: 'Sensor was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Sensor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
