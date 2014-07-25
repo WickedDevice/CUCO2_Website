@@ -104,7 +104,13 @@ class SensorDataController < ApplicationController
   def destroy
     @sensor_datum.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Sensor datum was successfully destroyed.' }
+      format.html {
+        begin
+          redirect_to :back, notice: 'Sensor datum was successfully destroyed.'
+        rescue ActionController::RedirectBackError
+          redirect_to sensor_data_url, notice: 'Sensor datum was successfully destroyed.'
+        end
+      }
       format.json { head :no_content }
     end
   end
