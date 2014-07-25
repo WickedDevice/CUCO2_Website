@@ -88,6 +88,8 @@ class SensorDatum < ActiveRecord::Base
 				success &= sensor_datum.save
 			else
 				#Don't save duplicates.
+				puts "Duplicate data uploaded!\n\
+				\t(ppm: #{sensor_datum.ppm}, experiment: #{sensor_datum.experiment_id}, device_id: #{sensor_datum.device_id}, time: #{sensor_datum.created_at})"
 			end
 		end
 
