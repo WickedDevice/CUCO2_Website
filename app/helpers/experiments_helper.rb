@@ -21,4 +21,7 @@ module ExperimentsHelper
 		ExperimentsHelper.chart_data experiment, options
 	end
 
+	def csv_dygraph_remove_illegal_chars string
+		return string.gsub(",",".").gsub('"', "'")
+	end
 end

@@ -2,7 +2,7 @@
 <%=
 
 CSV.generate do |csv|
-	csv << ["Time"] + (@devices.map {|x| x.name})
+	csv << ["Time"] + (@devices.map {|x| csv_dygraph_remove_illegal_chars x.name})
 
 	chart_data(@experiment, max_points: 500).each do |time, values|
 		row = [time.in_time_zone.to_formatted_s(:custom_csv)]
