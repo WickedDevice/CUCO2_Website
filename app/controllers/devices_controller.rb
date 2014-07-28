@@ -111,6 +111,6 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:name, :address, :notes, :experiment_id, :encryption_key).merge(user_id: current_user.id)
+      params.require(:device).permit(:name, :address, :notes, :experiment_id, :encryption_key).merge(user_id: (@device && @device.user_id ? @device.user_id : current_user.id))
     end
 end
